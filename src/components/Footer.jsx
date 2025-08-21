@@ -12,7 +12,7 @@ const Footer = () => {
               <div className="bg-gradient-to-r from-primary to-accent w-8 h-8 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">RK</span>
               </div>
-              <span className="text-xl font-bold text-foreground">rent-karo</span>
+              <span className="text-xl font-bold text-foreground">Rent Karo</span>
             </Link>
             <p className="text-muted-foreground text-sm">
               India's trusted marketplace for renting anything from cameras to cars.
@@ -52,7 +52,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li className="flex items-center space-x-2 text-muted-foreground">
                 <Mail className="w-4 h-4" />
-                <span>support@rent-karo.com</span>
+                <span>support@rentkaro.com</span>
               </li>
               <li className="flex items-center space-x-2 text-muted-foreground">
                 <Phone className="w-4 h-4" />
@@ -68,7 +68,7 @@ const Footer = () => {
 
         <div className="border-t border-border mt-8 pt-8 text-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 rent-karo. All rights reserved.
+            © 2024 Rent Karo. All rights reserved.
           </p>
         </div>
       </div>

@@ -18,7 +18,7 @@ const Navbar = () => {
             <div className="bg-gradient-to-r from-primary to-accent w-8 h-8 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">RK</span>
             </div>
-            <span className="text-xl font-bold text-foreground">rent-karo</span>
+            <span className="text-xl font-bold text-foreground">Rent Karo</span>
           </Link>
 
           {/* Desktop Navigation */}

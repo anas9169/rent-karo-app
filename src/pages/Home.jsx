@@ -29,8 +29,8 @@ const Home = () => {
 
   const trustBadges = [
     { icon: Shield, title: 'Verified Listings', desc: 'Every item is verified by our team' },
-    { icon: CreditCard, title: 'Secure Payments', desc: 'Safe and encrypted transactions' },
-    { icon: Headphones, title: '24/7 Support', desc: 'Round the clock customer support' }
+    { icon: Headphones, title: 'Easy Communication', desc: 'Direct chat between renters and owners' },
+    { icon: Search, title: 'Smart Discovery', desc: 'Find exactly what you need nearby' }
   ];
 
   // Sample featured listings
