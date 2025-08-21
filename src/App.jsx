@@ -13,6 +13,7 @@ import RenterDashboard from "./pages/RenterDashboard";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Admin from "./pages/Admin";
+import SubscriptionPlans from "./pages/SubscriptionPlans";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,10 +33,11 @@ const App = () => (
             <Route path="/owner-dashboard" element={<OwnerDashboard />} />
             <Route path="/renter-dashboard" element={<RenterDashboard />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/subscription-plans" element={<SubscriptionPlans />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
         </Layout>
       </BrowserRouter>
     </TooltipProvider>

@@ -6,8 +6,12 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Calendar, MessageCircle, Star, Clock, CheckCircle, XCircle, Heart, Search } from 'lucide-react';
+import ChatModal from '@/components/ChatModal';
 
 const RenterDashboard = () => {
+  const [showChat, setShowChat] = useState(false);
+  const [selectedChat, setSelectedChat] = useState(null);
+
   // Sample data - in real app, this would come from API
   const dashboardStats = {
     activeRentals: 2,
@@ -307,7 +311,13 @@ const RenterDashboard = () => {
                       </div>
                       
                       <div className="flex space-x-2 mt-4">
-                        <Button size="sm">
+                        <Button 
+                          size="sm"
+                          onClick={() => {
+                            setSelectedChat({ name: rental.listing.owner, listing: rental.listing });
+                            setShowChat(true);
+                          }}
+                        >
                           <MessageCircle className="w-4 h-4 mr-2" />
                           Chat with Owner
                         </Button>
@@ -416,6 +426,14 @@ const RenterDashboard = () => {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Chat Modal */}
+      <ChatModal 
+        isOpen={showChat}
+        onClose={() => setShowChat(false)}
+        user={selectedChat}
+        listing={selectedChat?.listing}
+      />
     </div>
   );
 };

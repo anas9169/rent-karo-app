@@ -13,8 +13,8 @@ const OwnerDashboard = () => {
   // Sample data - in real app, this would come from API
   const dashboardStats = {
     totalListings: 5,
-    activeBookings: 3,
-    totalEarnings: 15750,
+    activeListings: 3,
+    messageCount: 8,
     pendingRequests: 2
   };
 
@@ -142,8 +142,8 @@ const OwnerDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-muted-foreground text-sm">Active Bookings</p>
-                  <p className="text-2xl font-bold">{dashboardStats.activeBookings}</p>
+                  <p className="text-muted-foreground text-sm">Active Listings</p>
+                  <p className="text-2xl font-bold">{dashboardStats.activeListings}</p>
                 </div>
                 <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
                   <Calendar className="w-6 h-6 text-accent" />
@@ -156,11 +156,11 @@ const OwnerDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-muted-foreground text-sm">Total Earnings</p>
-                  <p className="text-2xl font-bold">₹{dashboardStats.totalEarnings.toLocaleString()}</p>
+                  <p className="text-muted-foreground text-sm">Messages</p>
+                  <p className="text-2xl font-bold">{dashboardStats.messageCount}</p>
                 </div>
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                  <IndianRupee className="w-6 h-6 text-green-600" />
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <MessageCircle className="w-6 h-6 text-blue-600" />
                 </div>
               </div>
             </CardContent>
@@ -185,9 +185,9 @@ const OwnerDashboard = () => {
         <Tabs defaultValue="listings" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="listings">My Listings</TabsTrigger>
-            <TabsTrigger value="requests">Requests ({dashboardStats.pendingRequests})</TabsTrigger>
+            <TabsTrigger value="requests">Messages ({dashboardStats.pendingRequests})</TabsTrigger>
             <TabsTrigger value="calendar">Calendar</TabsTrigger>
-            <TabsTrigger value="payouts">Payouts</TabsTrigger>
+            <TabsTrigger value="subscription">Subscription</TabsTrigger>
           </TabsList>
 
           {/* My Listings */}
@@ -333,20 +333,33 @@ const OwnerDashboard = () => {
             </Card>
           </TabsContent>
 
-          {/* Payouts */}
-          <TabsContent value="payouts">
+          {/* Subscription */}
+          <TabsContent value="subscription">
             <Card>
               <CardHeader>
-                <CardTitle>Payouts</CardTitle>
-                <CardDescription>Track your earnings and payment history</CardDescription>
+                <CardTitle>Subscription Plan</CardTitle>
+                <CardDescription>Manage your Rent Karo subscription</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-12">
-                  <IndianRupee className="w-12 h-12 mx-auto mb-4 opacity-50 text-muted-foreground" />
-                  <h3 className="text-lg font-semibold mb-2">Payout system coming soon</h3>
-                  <p className="text-muted-foreground">
-                    We're working on integrating secure payment processing for automatic payouts.
-                  </p>
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+                    <div>
+                      <h3 className="font-semibold">Free Plan</h3>
+                      <p className="text-muted-foreground text-sm">3 listings per month • Basic features</p>
+                      <p className="text-xs text-muted-foreground mt-1">2 of 3 listings used this month</p>
+                    </div>
+                    <Badge variant="outline">Current Plan</Badge>
+                  </div>
+                  
+                  <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 rounded-lg">
+                    <h3 className="text-lg font-semibold mb-2">Upgrade to Premium</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Get unlimited listings, priority placement, and advanced features
+                    </p>
+                    <Button onClick={() => navigate('/subscription-plans')} className="btn-hero">
+                      View Plans
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>

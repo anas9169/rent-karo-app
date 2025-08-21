@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ListingCard from '@/components/ListingCard';
 import { Search, Filter, MapPin, Calendar } from 'lucide-react';
+import AdBanner from '@/components/AdBanner';
 
 const SearchPage = () => {
   const location = useLocation();
@@ -245,6 +246,8 @@ const SearchPage = () => {
                 {filteredListings.length} items found
               </h2>
             </div>
+
+            <AdBanner position="top" className="mb-6" />
 
             {filteredListings.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

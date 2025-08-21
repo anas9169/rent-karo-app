@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, MapPin, Star, Heart, Share2, Shield, MessageCircle, ArrowLeft } from 'lucide-react';
+import ChatModal from '@/components/ChatModal';
 
 const ListingDetails = () => {
   const { id } = useParams();
@@ -58,14 +59,11 @@ const ListingDetails = () => {
     return days > 0 ? days * listing.price : 0;
   };
 
+  const [showChat, setShowChat] = useState(false);
+
   const handleBookingRequest = () => {
-    // In real app, check if user is logged in
-    setIsBookingModalOpen(true);
-    // For demo, show success message
-    setTimeout(() => {
-      alert('Booking request sent! The owner will respond within 24 hours.');
-      setIsBookingModalOpen(false);
-    }, 1000);
+    // In new business model, this opens chat instead of booking
+    setShowChat(true);
   };
 
   return (
@@ -252,7 +250,8 @@ const ListingDetails = () => {
                   onClick={handleBookingRequest}
                   disabled={!selectedDate || !returnDate}
                 >
-                  Request to Book
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Contact Owner
                 </Button>
 
                 <div className="mt-4 space-y-2 text-sm text-muted-foreground">
@@ -262,7 +261,7 @@ const ListingDetails = () => {
                   </div>
                   <div className="flex items-center">
                     <Shield className="w-4 h-4 mr-2" />
-                    <span>Protected by rent-karo guarantee</span>
+                    <span>Connect directly with the owner</span>
                   </div>
                 </div>
               </div>
@@ -270,6 +269,14 @@ const ListingDetails = () => {
           </div>
         </div>
       </div>
+
+      {/* Chat Modal */}
+      <ChatModal 
+        isOpen={showChat}
+        onClose={() => setShowChat(false)}
+        user={listing.owner}
+        listing={listing}
+      />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import ListingCard from '@/components/ListingCard';
 import { Search, Calendar, MapPin, Camera, Wrench, PartyPopper, Smartphone, Car, Shield, CreditCard, Headphones } from 'lucide-react';
+import AdBanner from '@/components/AdBanner';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -182,6 +183,9 @@ const Home = () => {
             <p className="text-muted-foreground">Handpicked items from trusted owners</p>
           </div>
           
+          {/* Ad Banner */}
+          <AdBanner position="top" className="mb-8" />
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredListings.map((listing) => (
               <ListingCard key={listing.id} {...listing} />
@@ -196,9 +200,9 @@ const Home = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Got something to rent out?
           </h2>
-          <p className="text-xl text-white/90 mb-8">
-            Earn money by sharing your unused items with people who need them
-          </p>
+            <p className="text-xl text-white/90 mb-8">
+              Connect with people who need your items - Rent Karo makes it easy!
+            </p>
           <Button 
             size="lg"
             className="bg-white text-primary hover:bg-white/90 px-8 py-4 text-lg font-semibold"

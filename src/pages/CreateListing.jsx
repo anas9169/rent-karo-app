@@ -111,8 +111,18 @@ const CreateListing = () => {
   };
 
   const handleSubmit = () => {
+    // Check listing limit for free users
+    const userListingsThisMonth = 2; // Mock data - would come from API
+    const hasFreePlan = true; // Mock data - would come from user profile
+    
+    if (hasFreePlan && userListingsThisMonth >= 3) {
+      alert('You have reached your monthly listing limit (3 listings). Upgrade to Premium for unlimited listings!');
+      navigate('/subscription-plans');
+      return;
+    }
+    
     // In real app, this would submit to backend
-    alert('Listing created successfully! It will be reviewed and published within 24 hours.');
+    alert('Listing created successfully! Other users can now find and contact you about this item.');
     navigate('/owner-dashboard');
   };
 
