@@ -6,11 +6,10 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Calendar, MessageCircle, Star, Clock, CheckCircle, Heart, Search } from 'lucide-react';
-import ChatModal from '@/components/ChatModal';
+import { useChatModal } from '@/contexts/ChatContext';
 
 const RenterDashboard = () => {
-  const [showChat, setShowChat] = useState(false);
-  const [selectedChat, setSelectedChat] = useState(null);
+  const { openChat } = useChatModal();
 
   // Sample data - in real app, this would come from API
   const dashboardStats = {
@@ -257,10 +256,10 @@ const RenterDashboard = () => {
                           <Button 
                             variant="ghost" 
                             size="sm"
-                            onClick={() => {
-                              setSelectedChat({ name: request.listing.owner, listing: request.listing });
-                              setShowChat(true);
-                            }}
+                            onClick={() => openChat(
+                              { name: request.listing.owner },
+                              request.listing
+                            )}
                           >
                             <MessageCircle className="w-4 h-4" />
                           </Button>
@@ -324,10 +323,10 @@ const RenterDashboard = () => {
                       <div className="flex space-x-2 mt-4">
                         <Button 
                           size="sm"
-                          onClick={() => {
-                            setSelectedChat({ name: rental.listing.owner, listing: rental.listing });
-                            setShowChat(true);
-                          }}
+                          onClick={() => openChat(
+                            { name: rental.listing.owner },
+                            rental.listing
+                          )}
                         >
                           <MessageCircle className="w-4 h-4 mr-2" />
                           Chat with Owner
@@ -438,15 +437,6 @@ const RenterDashboard = () => {
         </Tabs>
       </div>
 
-      {/* ✅ Chat Modal */}
-      {showChat && (
-        <ChatModal 
-          isOpen={showChat}
-          onClose={() => setShowChat(false)}
-          user={{ name: selectedChat?.name }}
-          listing={selectedChat?.listing}
-        />
-      )}
     </div>
   );
 };

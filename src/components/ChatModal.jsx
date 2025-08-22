@@ -70,19 +70,19 @@ const ChatModal = ({ isOpen, onClose, user, listing }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md h-[500px] flex flex-col">
-        <DialogHeader className="flex-shrink-0">
+      <DialogContent className="max-w-md sm:max-w-lg w-full mx-4 h-[500px] sm:h-[600px] flex flex-col p-0">
+        <DialogHeader className="flex-shrink-0 p-4 sm:p-6 border-b">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Avatar className="w-10 h-10">
+              <Avatar className="w-8 h-8 sm:w-10 sm:h-10">
                 <AvatarImage src={user?.avatar} />
-                <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
+                <AvatarFallback className="text-xs sm:text-sm">{user?.name?.charAt(0) || "U"}</AvatarFallback>
               </Avatar>
-              <div>
-                <DialogTitle className="text-base">
+              <div className="min-w-0 flex-1">
+                <DialogTitle className="text-sm sm:text-base truncate">
                   {user?.name || "Chat"}
                 </DialogTitle>
-                <DialogDescription className="text-sm">
+                <DialogDescription className="text-xs sm:text-sm truncate">
                   About {listing?.title || "listing"}
                 </DialogDescription>
               </div>
@@ -91,18 +91,18 @@ const ChatModal = ({ isOpen, onClose, user, listing }) => {
               variant="ghost"
               size="icon"
               onClick={onClose}
-              className="rounded-full"
+              className="rounded-full h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3 h-3 sm:w-4 sm:h-4" />
             </Button>
           </div>
         </DialogHeader>
 
         <ScrollArea
-          className="flex-1 px-1 overflow-y-auto"
+          className="flex-1 px-3 sm:px-4 overflow-y-auto"
           ref={scrollRef}
         >
-          <div className="space-y-4 pb-4">
+          <div className="space-y-3 sm:space-y-4 py-4">
             {messages.map((msg) => (
               <div
                 key={msg.id}
@@ -111,13 +111,13 @@ const ChatModal = ({ isOpen, onClose, user, listing }) => {
                 }`}
               >
                 <div
-                  className={`max-w-[80%] rounded-lg px-3 py-2 text-sm ${
+                  className={`max-w-[85%] sm:max-w-[80%] rounded-lg px-3 py-2 text-xs sm:text-sm ${
                     msg.senderId === "me"
                       ? "bg-primary text-primary-foreground"
                       : "bg-muted text-muted-foreground"
                   }`}
                 >
-                  <p>{msg.text}</p>
+                  <p className="break-words">{msg.text}</p>
                   <p
                     className={`text-xs mt-1 ${
                       msg.senderId === "me"
@@ -133,15 +133,16 @@ const ChatModal = ({ isOpen, onClose, user, listing }) => {
           </div>
         </ScrollArea>
 
-        <div className="flex-shrink-0 flex items-center space-x-2 pt-4 border-t">
+        <div className="flex-shrink-0 flex items-center space-x-2 p-3 sm:p-4 border-t">
           <Input
             placeholder="Type a message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+            className="text-sm sm:text-base"
           />
-          <Button onClick={handleSendMessage} size="sm">
-            <Send className="w-4 h-4" />
+          <Button onClick={handleSendMessage} size="sm" className="h-9 w-9 sm:h-10 sm:w-10 p-0">
+            <Send className="w-3 h-3 sm:w-4 sm:h-4" />
           </Button>
         </div>
       </DialogContent>

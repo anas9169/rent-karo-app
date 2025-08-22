@@ -34,10 +34,12 @@ const Navbar = () => {
                 <Heart className="w-4 h-4 mr-2" />
                 Favorites
               </Button>
-              <Button variant="ghost" size="sm">
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Messages
-              </Button>
+              <Link to="/messages">
+                <Button variant="ghost" size="sm">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Messages
+                </Button>
+              </Link>
               <Button 
                 variant="ghost" 
                 size="sm"

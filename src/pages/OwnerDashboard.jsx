@@ -6,8 +6,10 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Plus, Calendar, IndianRupee, MessageCircle, Eye, Edit, Star, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { useChatModal } from '@/contexts/ChatContext';
 
 const OwnerDashboard = () => {
+  const { openChat } = useChatModal();
   const navigate = useNavigate();
   
   // Sample data - in real app, this would come from API
@@ -290,7 +292,14 @@ const OwnerDashboard = () => {
                           <XCircle className="w-4 h-4 mr-2" />
                           Decline
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => openChat(
+                            { name: request.renter.name, avatar: request.renter.avatar },
+                            { title: request.listing }
+                          )}
+                        >
                           <MessageCircle className="w-4 h-4" />
                         </Button>
                       </div>

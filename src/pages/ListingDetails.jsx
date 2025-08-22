@@ -5,14 +5,14 @@ import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, MapPin, Star, Heart, Share2, Shield, MessageCircle, ArrowLeft } from 'lucide-react';
-import ChatModal from '@/components/ChatModal';
+import { useChatModal } from '@/contexts/ChatContext';
 
 const ListingDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { openChat } = useChatModal();
   const [selectedDate, setSelectedDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   // Sample listing data (in real app, this would be fetched based on ID)
   const listing = {
@@ -59,11 +59,9 @@ const ListingDetails = () => {
     return days > 0 ? days * listing.price : 0;
   };
 
-  const [showChat, setShowChat] = useState(false);
-
   const handleBookingRequest = () => {
     // In new business model, this opens chat instead of booking
-    setShowChat(true);
+    openChat(listing.owner, listing);
   };
 
   return (
@@ -179,7 +177,11 @@ const ListingDetails = () => {
                     </div>
                     <span>Joined {listing.owner.joinedDate}</span>
                   </div>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => openChat(listing.owner, listing)}
+                  >
                     <MessageCircle className="w-4 h-4 mr-2" />
                     Contact host
                   </Button>
@@ -270,13 +272,6 @@ const ListingDetails = () => {
         </div>
       </div>
 
-      {/* Chat Modal */}
-      <ChatModal 
-        isOpen={showChat}
-        onClose={() => setShowChat(false)}
-        user={listing.owner}
-        listing={listing}
-      />
     </div>
   );
 };

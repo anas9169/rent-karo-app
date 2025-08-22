@@ -1,5 +1,6 @@
 import Navbar from './Navbar';
 import Footer from './Footer';
+import GlobalChatModal from './GlobalChatModal';
 
 const Layout = ({ children }) => {
   return (
@@ -9,6 +10,7 @@ const Layout = ({ children }) => {
         {children}
       </main>
       <Footer />
+      <GlobalChatModal />
     </div>
   );
 };
