@@ -1,52 +1,71 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Send, X } from 'lucide-react';
+import { useState, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Send, X } from "lucide-react";
 
 const ChatModal = ({ isOpen, onClose, user, listing }) => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([
     {
       id: 1,
-      senderId: 'other',
-      text: `Hi! I'm interested in renting your ${listing?.title}. Is it available for the dates I mentioned?`,
+      senderId: "other",
+      text: `Hi! I'm interested in renting your ${
+        listing?.title || "item"
+      }. Is it available for the dates I mentioned?`,
       timestamp: new Date(Date.now() - 300000),
-      senderName: user?.name || 'User'
-    }
+      senderName: user?.name || "User",
+    },
   ]);
+
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages, isOpen]);
 
   const handleSendMessage = () => {
     if (!message.trim()) return;
 
     const newMessage = {
       id: messages.length + 1,
-      senderId: 'me',
+      senderId: "me",
       text: message,
       timestamp: new Date(),
-      senderName: 'You'
+      senderName: "You",
     };
 
     setMessages([...messages, newMessage]);
-    setMessage('');
+    setMessage("");
 
     // Simulate response
     setTimeout(() => {
       const response = {
         id: messages.length + 2,
-        senderId: 'other',
-        text: 'Thanks for your interest! Yes, it should be available. Let me check the exact dates and get back to you.',
+        senderId: "other",
+        text: "Thanks for your interest! Yes, it should be available. Let me check the exact dates and get back to you.",
         timestamp: new Date(),
-        senderName: user?.name || 'User'
+        senderName: user?.name || "User",
       };
-      setMessages(prev => [...prev, response]);
+      setMessages((prev) => [...prev, response]);
     }, 1000);
   };
 
   const formatTime = (timestamp) => {
-    return timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return timestamp.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   };
 
   return (
@@ -57,36 +76,55 @@ const ChatModal = ({ isOpen, onClose, user, listing }) => {
             <div className="flex items-center space-x-3">
               <Avatar className="w-10 h-10">
                 <AvatarImage src={user?.avatar} />
-                <AvatarFallback>{user?.name?.charAt(0) || 'U'}</AvatarFallback>
+                <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
               </Avatar>
               <div>
-                <DialogTitle className="text-base">{user?.name || 'Chat'}</DialogTitle>
+                <DialogTitle className="text-base">
+                  {user?.name || "Chat"}
+                </DialogTitle>
                 <DialogDescription className="text-sm">
-                  About {listing?.title || 'listing'}
+                  About {listing?.title || "listing"}
                 </DialogDescription>
               </div>
             </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onClose}
+              className="rounded-full"
+            >
+              <X className="w-4 h-4" />
+            </Button>
           </div>
         </DialogHeader>
 
-        <ScrollArea className="flex-1 px-1">
+        <ScrollArea
+          className="flex-1 px-1 overflow-y-auto"
+          ref={scrollRef}
+        >
           <div className="space-y-4 pb-4">
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex ${msg.senderId === 'me' ? 'justify-end' : 'justify-start'}`}
+                className={`flex ${
+                  msg.senderId === "me" ? "justify-end" : "justify-start"
+                }`}
               >
                 <div
                   className={`max-w-[80%] rounded-lg px-3 py-2 text-sm ${
-                    msg.senderId === 'me'
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted text-muted-foreground'
+                    msg.senderId === "me"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-muted-foreground"
                   }`}
                 >
                   <p>{msg.text}</p>
-                  <p className={`text-xs mt-1 ${
-                    msg.senderId === 'me' ? 'text-primary-foreground/70' : 'text-muted-foreground/70'
-                  }`}>
+                  <p
+                    className={`text-xs mt-1 ${
+                      msg.senderId === "me"
+                        ? "text-primary-foreground/70"
+                        : "text-muted-foreground/70"
+                    }`}
+                  >
                     {formatTime(msg.timestamp)}
                   </p>
                 </div>
@@ -100,7 +138,7 @@ const ChatModal = ({ isOpen, onClose, user, listing }) => {
             placeholder="Type a message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+            onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
           />
           <Button onClick={handleSendMessage} size="sm">
             <Send className="w-4 h-4" />

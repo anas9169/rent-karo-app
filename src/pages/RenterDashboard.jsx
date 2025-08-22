@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Calendar, MessageCircle, Star, Clock, CheckCircle, XCircle, Heart, Search } from 'lucide-react';
+import { Calendar, MessageCircle, Star, Clock, CheckCircle, Heart, Search } from 'lucide-react';
 import ChatModal from '@/components/ChatModal';
 
 const RenterDashboard = () => {
@@ -154,6 +154,7 @@ const RenterDashboard = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {/* Active Rentals */}
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
@@ -168,6 +169,7 @@ const RenterDashboard = () => {
             </CardContent>
           </Card>
 
+          {/* Completed Rentals */}
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
@@ -182,6 +184,7 @@ const RenterDashboard = () => {
             </CardContent>
           </Card>
 
+          {/* Favorites */}
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
@@ -196,6 +199,7 @@ const RenterDashboard = () => {
             </CardContent>
           </Card>
 
+          {/* Pending Requests */}
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
@@ -250,7 +254,14 @@ const RenterDashboard = () => {
                         </div>
                         <div className="flex items-center space-x-3">
                           {getStatusBadge(request.status)}
-                          <Button variant="ghost" size="sm">
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => {
+                              setSelectedChat({ name: request.listing.owner, listing: request.listing });
+                              setShowChat(true);
+                            }}
+                          >
                             <MessageCircle className="w-4 h-4" />
                           </Button>
                         </div>
@@ -427,13 +438,15 @@ const RenterDashboard = () => {
         </Tabs>
       </div>
 
-      {/* Chat Modal */}
-      <ChatModal 
-        isOpen={showChat}
-        onClose={() => setShowChat(false)}
-        user={selectedChat}
-        listing={selectedChat?.listing}
-      />
+      {/* ✅ Chat Modal */}
+      {showChat && (
+        <ChatModal 
+          isOpen={showChat}
+          onClose={() => setShowChat(false)}
+          user={{ name: selectedChat?.name }}
+          listing={selectedChat?.listing}
+        />
+      )}
     </div>
   );
 };
