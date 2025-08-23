@@ -16,6 +16,14 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Admin from "./pages/Admin";
 import SubscriptionPlans from "./pages/SubscriptionPlans";
+import AboutUs from "./pages/AboutUs";
+import FAQ from "./pages/FAQ";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ContactUs from "./pages/ContactUs";
+import UserProfile from "./pages/UserProfile";
+import Favorites from "./pages/Favorites";
+import AccountSettings from "./pages/AccountSettings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +48,14 @@ const App = () => (
               <Route path="/signup" element={<SignUp />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/subscription-plans" element={<SubscriptionPlans />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/contact" element={<ContactUs />} />
+              <Route path="/profile" element={<UserProfile />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/settings" element={<AccountSettings />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
