@@ -45,7 +45,7 @@ const FAQ = () => {
         },
         {
           question: 'What if an item is damaged or not as described?',
-          answer: 'Contact us immediately through our support system. We have policies in place to protect both renters and owners, and we'll help resolve any disputes fairly.'
+          answer: 'Contact us immediately through our support system. We have policies in place to protect both renters and owners, and we\'ll help resolve any disputes fairly.'
         },
         {
           question: 'Can I cancel a rental?',
