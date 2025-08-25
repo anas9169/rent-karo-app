@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ChatProvider } from "./contexts/ChatContext";
+import { FavoritesProvider } from "./contexts/FavoritesContext";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
@@ -24,6 +25,10 @@ import ContactUs from "./pages/ContactUs";
 import UserProfile from "./pages/UserProfile";
 import Favorites from "./pages/Favorites";
 import AccountSettings from "./pages/AccountSettings";
+import Categories from "./pages/Categories";
+import Locations from "./pages/Locations";
+import BecomeAHost from "./pages/BecomeAHost";
+import HelpCenter from "./pages/HelpCenter";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,7 +36,8 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <ChatProvider>
+      <FavoritesProvider>
+        <ChatProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
@@ -56,13 +62,18 @@ const App = () => (
               <Route path="/profile" element={<UserProfile />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/settings" element={<AccountSettings />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/locations" element={<Locations />} />
+              <Route path="/become-host" element={<BecomeAHost />} />
+              <Route path="/help" element={<HelpCenter />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
         </BrowserRouter>
       </ChatProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+    </FavoritesProvider>
+  </TooltipProvider>
+</QueryClientProvider>
 );
 
 export default App;
