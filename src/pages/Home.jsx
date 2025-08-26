@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import ListingCard from '@/components/ListingCard';
+import SearchInput from '@/components/SearchInput';
 import { Search, Calendar, MapPin, Camera, Wrench, PartyPopper, Smartphone, Car, Shield, CreditCard, Headphones } from 'lucide-react';
 import AdBanner from '@/components/AdBanner';
 
@@ -88,28 +89,26 @@ const Home = () => {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="relative">
                   <label className="block text-sm font-medium text-foreground mb-2">What</label>
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                    <Input
-                      placeholder="Camera, car, tools..."
-                      className="search-input pl-10"
-                      value={searchData.what}
-                      onChange={(e) => setSearchData({...searchData, what: e.target.value})}
-                    />
-                  </div>
+                  <SearchInput
+                    type="what"
+                    placeholder="Camera, car, tools..."
+                    className="search-input"
+                    value={searchData.what}
+                    onChange={(e) => setSearchData({...searchData, what: e.target.value})}
+                    icon={Search}
+                  />
                 </div>
                 
                 <div className="relative">
                   <label className="block text-sm font-medium text-foreground mb-2">Where</label>
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                    <Input
-                      placeholder="Mumbai, Delhi, Bangalore..."
-                      className="search-input pl-10"
-                      value={searchData.where}
-                      onChange={(e) => setSearchData({...searchData, where: e.target.value})}
-                    />
-                  </div>
+                  <SearchInput
+                    type="where"
+                    placeholder="Mumbai, Delhi, Bangalore..."
+                    className="search-input"
+                    value={searchData.where}
+                    onChange={(e) => setSearchData({...searchData, where: e.target.value})}
+                    icon={MapPin}
+                  />
                 </div>
                 
                 <div className="relative">

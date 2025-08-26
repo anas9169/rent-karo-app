@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ListingCard from '@/components/ListingCard';
+import SearchInput from '@/components/SearchInput';
 import { Search, Filter, MapPin, Calendar } from 'lucide-react';
 import AdBanner from '@/components/AdBanner';
 
@@ -138,25 +139,21 @@ const SearchPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <form onSubmit={handleSearch} className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  placeholder="What are you looking for?"
-                  className="pl-10"
-                  value={searchData.what}
-                  onChange={(e) => setSearchData({...searchData, what: e.target.value})}
-                />
-              </div>
+              <SearchInput
+                type="what"
+                placeholder="What are you looking for?"
+                value={searchData.what}
+                onChange={(e) => setSearchData({...searchData, what: e.target.value})}
+                icon={Search}
+              />
               
-              <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  placeholder="Where?"
-                  className="pl-10"
-                  value={searchData.where}
-                  onChange={(e) => setSearchData({...searchData, where: e.target.value})}
-                />
-              </div>
+              <SearchInput
+                type="where"
+                placeholder="Where?"
+                value={searchData.where}
+                onChange={(e) => setSearchData({...searchData, where: e.target.value})}
+                icon={MapPin}
+              />
               
               <div className="relative">
                 <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
