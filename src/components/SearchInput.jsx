@@ -204,7 +204,7 @@ const SearchInput = ({
       {isOpen && filteredSuggestions.length > 0 && (
         <div 
           ref={suggestionsRef}
-          className="absolute top-full left-0 right-0 z-50 mt-1 bg-background border border-border rounded-md shadow-lg max-h-60 overflow-y-auto"
+          className="absolute top-full left-0 right-0 z-[100] mt-1 bg-white dark:bg-gray-800 border border-border rounded-md shadow-xl max-h-60 overflow-y-auto"
         >
           {filteredSuggestions.map((suggestion, index) => (
             <button
