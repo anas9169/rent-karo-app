@@ -54,7 +54,6 @@ const Navbar = () => {
                   Messages
                 </Button>
               </Link>
-              </Link>
               <div className="relative">
                 <Button 
                   variant="ghost" 
