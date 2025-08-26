@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { categories } from '../data/categories';
 
 const SearchInput = ({ 
   type = 'what', // 'what' or 'where'
@@ -45,83 +46,66 @@ const SearchInput = ({
     'Juhu, Mumbai'
   ];
 
-  // Item/Category suggestions
-  const itemSuggestions = [
-    // Electronics
-    'Camera',
-    'DSLR Camera',
-    'Mirrorless Camera',
-    'Canon Camera',
-    'Nikon Camera',
-    'Sony Camera',
-    'Laptop',
-    'MacBook',
-    'iPhone',
-    'Samsung Phone',
-    'Gaming Console',
-    'PlayStation',
-    'Xbox',
-    'Projector',
-    'Speaker',
-    'Headphones',
-    
-    // Vehicles
-    'Car',
-    'Bike',
-    'Motorcycle',
-    'Scooter',
-    'BMW',
-    'Honda',
-    'Maruti',
-    'Toyota',
-    'Bicycle',
-    'Electric Bike',
-    
-    // Tools
-    'Drill',
-    'Power Tools',
-    'Hammer',
-    'Saw',
-    'Wrench Set',
-    'Ladder',
-    'Measuring Tools',
-    
-    // Party & Events
-    'DJ Equipment',
-    'Sound System',
-    'Microphone',
-    'Party Lights',
-    'Decorations',
-    'Tables',
-    'Chairs',
-    'Tent',
-    
-    // Home & Garden
-    'Vacuum Cleaner',
-    'Pressure Washer',
-    'Lawn Mower',
-    'Generator',
-    'Air Conditioner',
-    
-    // Sports & Fitness
-    'Treadmill',
-    'Dumbbells',
-    'Yoga Mat',
-    'Cricket Kit',
-    'Football',
-    'Tennis Racket'
-  ];
-
-  const getSuggestions = () => {
-    return type === 'where' ? locationSuggestions : itemSuggestions;
+  // Generate category suggestions from shared data
+  const getCategorySuggestions = () => {
+    const categoryNames = categories.map(cat => cat.name);
+    const categoryDescriptions = categories.flatMap(cat => 
+      cat.description.split(', ').map(item => 
+        item.charAt(0).toUpperCase() + item.slice(1)
+      )
+    );
+    return [...categoryNames, ...categoryDescriptions];
   };
 
-  const handleInputChange = (e) => {
+  // Location API integration for dynamic suggestions
+  const fetchLocationSuggestions = async (query) => {
+    if (query.length < 1) return [];
+    
+    try {
+      // Using a free location API service for India
+      // Note: In production, you might want to use Google Places API or similar
+      const response = await fetch(
+        `https://api.postalpincode.in/pincode/${query}*`
+      );
+      const data = await response.json();
+      
+      if (data && data[0] && data[0].PostOffice) {
+        return data[0].PostOffice.map(office => 
+          `${office.Name}, ${office.District}, ${office.State}`
+        ).slice(0, 8);
+      }
+      return [];
+    } catch (error) {
+      console.error('Error fetching locations:', error);
+      // Fallback to static suggestions if API fails
+      return locationSuggestions.filter(location =>
+        location.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+  };
+
+  const getSuggestions = async (query = '') => {
+    if (type === 'where') {
+      // Try to fetch dynamic locations first, fallback to static
+      if (query.length > 0) {
+        const dynamicSuggestions = await fetchLocationSuggestions(query);
+        if (dynamicSuggestions.length > 0) {
+          return dynamicSuggestions;
+        }
+      }
+      return locationSuggestions;
+    } else {
+      // Use dynamic category suggestions
+      return getCategorySuggestions();
+    }
+  };
+
+  const handleInputChange = async (e) => {
     const newValue = e.target.value;
     onChange(e);
     
     if (newValue.length > 0) {
-      const suggestions = getSuggestions();
+      const suggestions = await getSuggestions(newValue);
       const filtered = suggestions.filter(suggestion =>
         suggestion.toLowerCase().includes(newValue.toLowerCase())
       ).slice(0, 8); // Limit to 8 suggestions
@@ -134,10 +118,10 @@ const SearchInput = ({
     }
   };
 
-  const handleInputFocus = () => {
+  const handleInputFocus = async () => {
     if (value === '') {
       // Show popular suggestions when input is empty and focused
-      const suggestions = getSuggestions();
+      const suggestions = await getSuggestions();
       const popularSuggestions = type === 'where' 
         ? suggestions.filter(s => s.includes('Lucknow')).slice(0, 5)
         : suggestions.slice(0, 8);
