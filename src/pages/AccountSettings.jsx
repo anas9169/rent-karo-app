@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Settings, Shield, Bell, Eye, CreditCard, Key, Trash2, Download, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -15,7 +16,7 @@ const AccountSettings = () => {
     newMessages: true,
     
     // Privacy Settings
-    profileVisibility: 'public',
+    profileVisibility: 'users',
     showEmail: false,
     showPhone: false,
     searchIndexing: true,
@@ -83,7 +84,6 @@ const AccountSettings = () => {
           description: 'Who can see your profile information',
           type: 'select',
           options: [
-            { value: 'public', label: 'Public - Anyone can see' },
             { value: 'users', label: 'Rent Karo users only' },
             { value: 'private', label: 'Private - Only you' }
           ]

@@ -98,6 +98,11 @@ const OwnerDashboard = () => {
     alert(`Request ${action}ed successfully!`);
   };
 
+  const handleEditListing = (listingId) => {
+    // Navigate to edit listing page with the listing ID
+    navigate(`/edit-listing/${listingId}`);
+  };
+
   const getStatusBadge = (status) => {
     const statusConfig = {
       active: { label: 'Active', variant: 'default' },
@@ -226,7 +231,11 @@ const OwnerDashboard = () => {
                       </div>
                       <div className="flex items-center space-x-3">
                         {getStatusBadge(listing.status)}
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleEditListing(listing.id)}
+                        >
                           <Edit className="w-4 h-4" />
                         </Button>
                       </div>

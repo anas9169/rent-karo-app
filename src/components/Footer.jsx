@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
 
@@ -68,7 +69,7 @@ const Footer = () => {
 
         <div className="border-t border-border mt-8 pt-8 text-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 Rent Karo. All rights reserved.
+            © 2025 Rent Karo. All rights reserved.
           </p>
         </div>
       </div>

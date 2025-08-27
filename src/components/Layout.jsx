@@ -1,3 +1,4 @@
+
 import Navbar from './Navbar';
 import Footer from './Footer';
 import GlobalChatModal from './GlobalChatModal';
@@ -8,7 +9,7 @@ const Layout = ({ children }) => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <ScrollingMarquee 
-        text="RentKaro connects renters and owners — we don't verify items or guarantee transactions, so please act responsibly." 
+        text="Rent Karo connects renters and owners — we don't verify items or guarantee transactions, so please act responsibly." 
         speed={80}
       />
       <main className="flex-1">

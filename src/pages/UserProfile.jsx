@@ -1,10 +1,14 @@
-import { useState } from 'react';
+
+import { useState, useRef } from 'react';
 import { User, Mail, Phone, MapPin, Calendar, Edit, Save, X, Camera, Shield, Award } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 const UserProfile = () => {
+  const navigate = useNavigate();
+  const fileInputRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
     name: 'Raj Kumar',
@@ -48,6 +52,24 @@ const UserProfile = () => {
     });
   };
 
+  const handlePhotoUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setProfileData({
+          ...profileData,
+          avatar: e.target.result
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerPhotoUpload = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <div className="min-h-screen py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -61,9 +83,19 @@ const UserProfile = () => {
                 alt={profileData.name}
                 className="w-24 h-24 rounded-full border-4 border-white/20 object-cover"
               />
-              <button className="absolute bottom-0 right-0 p-2 bg-white rounded-full text-primary hover:bg-gray-100 transition-colors">
+              <button 
+                onClick={triggerPhotoUpload}
+                className="absolute bottom-0 right-0 p-2 bg-white rounded-full text-primary hover:bg-gray-100 transition-colors"
+              >
                 <Camera className="w-4 h-4" />
               </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handlePhotoUpload}
+                className="hidden"
+              />
             </div>
             
             {/* Profile Info */}
@@ -257,15 +289,27 @@ const UserProfile = () => {
             <div className="bg-card border border-border rounded-lg p-6">
               <h3 className="text-lg font-semibold text-card-foreground mb-4">Quick Actions</h3>
               <div className="space-y-3">
-                <Button className="w-full justify-start" variant="outline">
+                <Button 
+                  onClick={() => navigate('/account-settings')}
+                  className="w-full justify-start" 
+                  variant="outline"
+                >
                   <Edit className="w-4 h-4 mr-2" />
                   Account Settings
                 </Button>
-                <Button className="w-full justify-start" variant="outline">
+                <Button 
+                  onClick={() => navigate('/privacy-settings')}
+                  className="w-full justify-start" 
+                  variant="outline"
+                >
                   <Shield className="w-4 h-4 mr-2" />
                   Privacy Settings
                 </Button>
-                <Button className="w-full justify-start" variant="outline">
+                <Button 
+                  onClick={() => navigate('/verification')}
+                  className="w-full justify-start" 
+                  variant="outline"
+                >
                   <Award className="w-4 h-4 mr-2" />
                   Verification
                 </Button>
