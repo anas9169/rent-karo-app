@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Heart, Star, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useFavorites } from '../contexts/FavoritesContext';
 
 const ListingCard = ({ 
   id, 
@@ -13,11 +14,25 @@ const ListingCard = ({
   reviewCount,
   category 
 }) => {
+  const { isFavorite: checkIsFavorite, addToFavorites, removeFromFavorites } = useFavorites();
   const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsFavorite(checkIsFavorite(id));
+  }, [id, checkIsFavorite]);
 
   const toggleFavorite = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    
+    const listingData = { id, image, title, city, price, rating, reviewCount, category };
+    
+    if (isFavorite) {
+      removeFromFavorites(id);
+    } else {
+      addToFavorites(listingData);
+    }
+    
     setIsFavorite(!isFavorite);
   };
 

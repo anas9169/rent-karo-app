@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Upload, X, Calendar, IndianRupee, MapPin, Camera, ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import SearchInput from '../components/SearchInput';
 
 const CreateListing = () => {
   const navigate = useNavigate();
@@ -181,15 +182,14 @@ const CreateListing = () => {
 
               <div>
                 <label className="block text-sm font-medium mb-2">Location *</label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
-                    placeholder="e.g., Bandra West, Mumbai"
-                    value={formData.location}
-                    onChange={(e) => setFormData({...formData, location: e.target.value})}
-                    className={`pl-10 ${errors.location ? 'border-red-500' : ''}`}
-                  />
-                </div>
+                <SearchInput
+                  type="where"
+                  placeholder="e.g., Bandra West, Mumbai"
+                  value={formData.location}
+                  onChange={(e) => setFormData({...formData, location: e.target.value})}
+                  className={errors.location ? 'border-red-500' : ''}
+                  icon={MapPin}
+                />
                 {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location}</p>}
               </div>
             </CardContent>
