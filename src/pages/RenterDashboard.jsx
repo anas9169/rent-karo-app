@@ -135,7 +135,7 @@ const RenterDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background page-transition">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
@@ -144,7 +144,7 @@ const RenterDashboard = () => {
             <p className="text-muted-foreground">Manage your rentals and discover new items</p>
           </div>
           <Link to="/search">
-            <Button className="btn-hero mt-4 md:mt-0">
+            <Button className="btn-hero mt-4 md:mt-0 btn-animated press-feedback">
               <Search className="w-4 h-4 mr-2" />
               Browse Items
             </Button>

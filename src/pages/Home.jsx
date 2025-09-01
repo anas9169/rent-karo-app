@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import ListingCard from '@/components/ListingCard';
@@ -69,7 +69,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen page-transition">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/10 via-background to-accent/5 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -125,7 +125,7 @@ const Home = () => {
                 </div>
                 
                 <div className="flex items-end">
-                  <Button type="submit" className="btn-hero w-full">
+                  <Button type="submit" className="btn-hero w-full press-feedback">
                     Search
                   </Button>
                 </div>
@@ -162,13 +162,17 @@ const Home = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {categories.map((category, index) => (
-              <div key={index} className="card-hover bg-card p-6 rounded-lg text-center border border-border cursor-pointer">
-                <div className="w-16 h-16 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Link 
+                key={index} 
+                to={`/search?category=${encodeURIComponent(category.name.toLowerCase())}`}
+                className="card-hover bg-card p-6 rounded-lg text-center border border-border cursor-pointer interactive-hover group"
+              >
+                <div className="w-16 h-16 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <category.icon className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="font-semibold text-card-foreground mb-1">{category.name}</h3>
+                <h3 className="font-semibold text-card-foreground mb-1 group-hover:text-primary transition-colors">{category.name}</h3>
                 <p className="text-sm text-muted-foreground">{category.count} items</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -204,7 +208,7 @@ const Home = () => {
             </p>
           <Button 
             size="lg"
-            className="bg-white text-primary hover:bg-white/90 px-8 py-4 text-lg font-semibold"
+            className="bg-white text-primary hover:bg-white/90 px-8 py-4 text-lg font-semibold btn-animated press-feedback"
             onClick={() => navigate('/create-listing')}
           >
             List your item

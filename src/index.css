@@ -121,7 +121,7 @@
 
   /* Card hover effects */
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:scale-105;
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
     box-shadow: var(--shadow-card);
   }
 
@@ -129,8 +129,60 @@
     box-shadow: var(--shadow-hover);
   }
 
+  /* Button hover animations */
+  .btn-animated {
+    @apply transition-all duration-200 hover:scale-105 active:scale-95;
+  }
+
+  /* Interactive elements */
+  .interactive-hover {
+    @apply transition-transform duration-200 hover:scale-105 cursor-pointer;
+  }
+
+  /* Smooth page transitions */
+  .page-transition {
+    @apply animate-fade-in;
+  }
+
   /* Search bar styles */
   .search-input {
     @apply w-full px-4 py-3 bg-white border border-muted rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200;
+  }
+
+  /* Navigation links */
+  .nav-link {
+    @apply relative text-foreground hover:text-primary transition-colors duration-200;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute w-full h-0.5 bg-primary scale-x-0 bottom-0 left-0 origin-bottom-right transition-transform duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply scale-x-100 origin-bottom-left;
+  }
+
+  /* Dropdown animations */
+  .dropdown-enter {
+    @apply animate-scale-in;
+  }
+
+  .dropdown-exit {
+    @apply animate-scale-out;
+  }
+
+  /* Loading states */
+  .loading-pulse {
+    @apply animate-pulse-slow;
+  }
+
+  /* Microinteraction feedback */
+  .micro-bounce {
+    @apply animate-bounce-subtle;
+  }
+
+  /* Button press feedback */
+  .press-feedback {
+    @apply active:scale-95 transition-transform duration-75;
   }
 }

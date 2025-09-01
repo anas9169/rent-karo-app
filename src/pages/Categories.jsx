@@ -14,7 +14,7 @@ const Categories = () => {
   const popularCategories = categories.filter(cat => cat.popular);
 
   return (
-    <div className="min-h-screen py-12">
+    <div className="min-h-screen py-12 page-transition">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -46,11 +46,11 @@ const Categories = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {popularCategories.map((category) => (
-                <Link
-                  key={category.id}
-                  to={`/search?category=${category.id}`}
-                  className="group bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-all duration-300 hover:border-primary/50"
-                >
+              <Link
+                key={category.id}
+                to={`/search?category=${encodeURIComponent(category.name.toLowerCase())}`}
+                className="group bg-card border border-border rounded-lg p-6 card-hover transition-all duration-300 hover:border-primary/50"
+              >
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                       <category.icon className="w-6 h-6 text-white" />
@@ -87,8 +87,8 @@ const Categories = () => {
             {filteredCategories.map((category) => (
               <Link
                 key={category.id}
-                to={`/search?category=${category.id}`}
-                className="group bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-all duration-300 hover:border-primary/50"
+                to={`/search?category=${encodeURIComponent(category.name.toLowerCase())}`}
+                className="group bg-card border border-border rounded-lg p-6 card-hover transition-all duration-300 hover:border-primary/50"
               >
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">

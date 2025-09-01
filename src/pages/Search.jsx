@@ -10,11 +10,13 @@ import AdBanner from '@/components/AdBanner';
 
 const SearchPage = () => {
   const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const categoryFromUrl = queryParams.get('category');
   const initialSearchData = location.state || { what: '', where: '', dates: '' };
   
   const [searchData, setSearchData] = useState(initialSearchData);
   const [filters, setFilters] = useState({
-    category: 'all',
+    category: categoryFromUrl || 'all',
     priceRange: 'all',
     sortBy: 'relevance'
   });
@@ -133,7 +135,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background page-transition">
       {/* Search Header */}
       <div className="bg-white border-b border-border sticky top-16 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -166,7 +168,7 @@ const SearchPage = () => {
               </div>
             </div>
             
-            <Button type="submit" className="lg:w-auto">
+            <Button type="submit" className="lg:w-auto btn-animated press-feedback">
               <Search className="w-4 h-4 mr-2" />
               Search
             </Button>
@@ -193,11 +195,18 @@ const SearchPage = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Categories</SelectItem>
-                      <SelectItem value="camera">Cameras</SelectItem>
+                      <SelectItem value="camera">Camera</SelectItem>
                       <SelectItem value="tools">Tools</SelectItem>
                       <SelectItem value="electronics">Electronics</SelectItem>
-                      <SelectItem value="vehicle">Vehicles</SelectItem>
+                      <SelectItem value="vehicle">Vehicle</SelectItem>
                       <SelectItem value="party">Party</SelectItem>
+                      <SelectItem value="home & garden">Home & Garden</SelectItem>
+                      <SelectItem value="photography">Photography</SelectItem>
+                      <SelectItem value="musical instruments">Musical Instruments</SelectItem>
+                      <SelectItem value="gaming">Gaming</SelectItem>
+                      <SelectItem value="sports & fitness">Sports & Fitness</SelectItem>
+                      <SelectItem value="baby & kids">Baby & Kids</SelectItem>
+                      <SelectItem value="tools & equipment">Tools & Equipment</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -248,8 +257,10 @@ const SearchPage = () => {
 
             {filteredListings.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredListings.map((listing) => (
-                  <ListingCard key={listing.id} {...listing} />
+                {filteredListings.map((listing, index) => (
+                  <div key={listing.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <ListingCard {...listing} />
+                  </div>
                 ))}
               </div>
             ) : (

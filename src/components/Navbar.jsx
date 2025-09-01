@@ -27,29 +27,29 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/search" className="text-foreground hover:text-primary transition-colors">
+            <Link to="/search" className="nav-link">
               Browse
             </Link>
-            <Link to="/categories" className="text-foreground hover:text-primary transition-colors">
+            <Link to="/categories" className="nav-link">
               Categories
             </Link>
-            <Link to="/create-listing" className="text-foreground hover:text-primary transition-colors">
+            <Link to="/create-listing" className="nav-link">
               List your item
             </Link>
             <div className="flex items-center space-x-4">
               <Link to="/favorites">
-                <Button variant="ghost" size="sm" className="relative">
+                <Button variant="ghost" size="sm" className="relative btn-animated">
                   <Heart className="w-4 h-4 mr-2" />
                   Favorites
                   {getFavoriteCount() > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center animate-bounce-subtle">
                       {getFavoriteCount()}
                     </span>
                   )}
                 </Button>
               </Link>
               <Link to="/messages">
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="btn-animated">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   Messages
                 </Button>
@@ -59,7 +59,7 @@ const Navbar = () => {
                   variant="ghost" 
                   size="sm"
                   onClick={toggleUserMenu}
-                  className="flex items-center"
+                  className="flex items-center btn-animated"
                 >
                   <User className="w-4 h-4 mr-2" />
                   Account
@@ -67,18 +67,18 @@ const Navbar = () => {
                 </Button>
                 
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-background border border-border rounded-md shadow-lg z-50">
+                  <div className="absolute right-0 mt-2 w-48 bg-background border border-border rounded-md shadow-lg z-50 dropdown-enter">
                     <div className="py-1">
                       <Link
                         to="/signin"
-                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
+                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors press-feedback"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
                         Sign In
                       </Link>
                       <Link
                         to="/signup"
-                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
+                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors press-feedback"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
                         Sign Up
@@ -86,28 +86,28 @@ const Navbar = () => {
                       <div className="border-t border-border my-1"></div>
                       <Link
                         to="/profile"
-                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
+                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors press-feedback"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
                         Profile
                       </Link>
                       <Link
                         to="/settings"
-                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
+                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors press-feedback"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
                         Settings
                       </Link>
                       <Link
                         to="/renter-dashboard"
-                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
+                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors press-feedback"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
                         Renter Dashboard
                       </Link>
                       <Link
                         to="/owner-dashboard"
-                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
+                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors press-feedback"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
                         Owner Dashboard
@@ -129,7 +129,7 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-border bg-white">
+          <div className="md:hidden border-t border-border bg-white animate-fade-in">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link
                 to="/search"
