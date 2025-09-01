@@ -29,6 +29,9 @@ import Categories from "./pages/Categories";
 import Locations from "./pages/Locations";
 import BecomeAHost from "./pages/BecomeAHost";
 import HelpCenter from "./pages/HelpCenter";
+import PrivacySettings from "./pages/PrivacySettings";
+import Verification from "./pages/Verification";
+import EditListing from "./pages/EditListing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -62,6 +65,10 @@ const App = () => (
               <Route path="/profile" element={<UserProfile />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/settings" element={<AccountSettings />} />
+              <Route path="/account-settings" element={<AccountSettings />} />
+              <Route path="/privacy-settings" element={<PrivacySettings />} />
+              <Route path="/verification" element={<Verification />} />
+              <Route path="/edit-listing/:id" element={<EditListing />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/locations" element={<Locations />} />
               <Route path="/become-host" element={<BecomeAHost />} />
