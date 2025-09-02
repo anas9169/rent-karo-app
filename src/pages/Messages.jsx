@@ -6,11 +6,14 @@ import { Button } from '@/components/ui/button';
 import { MessageCircle, Search, Filter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import ChatModal from '@/components/ChatModal';
+import FilterModal from '@/components/FilterModal';
 
 const Messages = () => {
   const [showChat, setShowChat] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [activeFilters, setActiveFilters] = useState(null);
 
   // Sample conversations data
   const conversations = [
@@ -61,10 +64,35 @@ const Messages = () => {
     }
   ];
 
-  const filteredConversations = conversations.filter(conv =>
-    conv.user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    conv.listing.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredConversations = conversations.filter(conv => {
+    // Search filter
+    const matchesSearch = conv.user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      conv.listing.title.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    if (!matchesSearch) return false;
+    
+    // Apply additional filters if active
+    if (!activeFilters) return true;
+    
+    // Unread only filter
+    if (activeFilters.unreadOnly && conv.unreadCount === 0) return false;
+    
+    // Owner chats only filter
+    if (activeFilters.ownerChats && !conv.isOwner) return false;
+    
+    // Timeframe filter
+    if (activeFilters.timeframe !== 'all') {
+      const now = new Date();
+      const messageTime = conv.timestamp;
+      const diffHours = (now - messageTime) / (1000 * 60 * 60);
+      
+      if (activeFilters.timeframe === 'today' && diffHours > 24) return false;
+      if (activeFilters.timeframe === 'week' && diffHours > 168) return false;
+      if (activeFilters.timeframe === 'month' && diffHours > 720) return false;
+    }
+    
+    return true;
+  });
 
   const formatTime = (timestamp) => {
     const now = new Date();
@@ -107,9 +135,14 @@ const Messages = () => {
               className="pl-10"
             />
           </div>
-          <Button variant="outline" className="w-full sm:w-auto">
+          <Button 
+            variant="outline" 
+            className="w-full sm:w-auto"
+            onClick={() => setShowFilterModal(true)}
+          >
             <Filter className="w-4 h-4 mr-2" />
             Filter
+            {activeFilters && <span className="ml-1 bg-primary text-primary-foreground text-xs rounded-full w-2 h-2"></span>}
           </Button>
         </div>
 
@@ -198,6 +231,13 @@ const Messages = () => {
             listing={selectedChat.listing}
           />
         )}
+
+        {/* Filter Modal */}
+        <FilterModal
+          isOpen={showFilterModal}
+          onClose={() => setShowFilterModal(false)}
+          onApplyFilter={setActiveFilters}
+        />
       </div>
     </div>
   );

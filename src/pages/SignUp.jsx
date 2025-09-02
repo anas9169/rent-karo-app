@@ -118,7 +118,7 @@ const SignUp = () => {
                     />
                     <Label 
                       htmlFor="renter"
-                      className="flex flex-col items-center justify-between rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+                      className="flex flex-col items-center justify-between rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer h-20 transition-all duration-200"
                     >
                       <span className="text-lg mb-1">📱</span>
                       <span className="font-medium">Rent Items</span>
@@ -133,7 +133,7 @@ const SignUp = () => {
                     />
                     <Label 
                       htmlFor="owner"
-                      className="flex flex-col items-center justify-between rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+                      className="flex flex-col items-center justify-between rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer h-20 transition-all duration-200"
                     >
                       <span className="text-lg mb-1">💰</span>
                       <span className="font-medium">Rent Out</span>

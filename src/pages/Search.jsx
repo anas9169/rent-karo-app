@@ -195,18 +195,18 @@ const SearchPage = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Categories</SelectItem>
-                      <SelectItem value="camera">Camera</SelectItem>
-                      <SelectItem value="tools">Tools</SelectItem>
-                      <SelectItem value="electronics">Electronics</SelectItem>
-                      <SelectItem value="vehicle">Vehicle</SelectItem>
-                      <SelectItem value="party">Party</SelectItem>
-                      <SelectItem value="home & garden">Home & Garden</SelectItem>
-                      <SelectItem value="photography">Photography</SelectItem>
-                      <SelectItem value="musical instruments">Musical Instruments</SelectItem>
-                      <SelectItem value="gaming">Gaming</SelectItem>
-                      <SelectItem value="sports & fitness">Sports & Fitness</SelectItem>
-                      <SelectItem value="baby & kids">Baby & Kids</SelectItem>
-                      <SelectItem value="tools & equipment">Tools & Equipment</SelectItem>
+                       <SelectItem value="camera">Camera</SelectItem>
+                       <SelectItem value="tools">Tools</SelectItem>
+                       <SelectItem value="electronics">Electronics</SelectItem>
+                       <SelectItem value="vehicle">Vehicle</SelectItem>
+                       <SelectItem value="party">Party</SelectItem>
+                       <SelectItem value="home & garden">Home & Garden</SelectItem>
+                       <SelectItem value="photography">Photography</SelectItem>
+                       <SelectItem value="musical instruments">Musical Instruments</SelectItem>
+                       <SelectItem value="gaming">Gaming</SelectItem>
+                       <SelectItem value="sports & fitness">Sports & Fitness</SelectItem>
+                       <SelectItem value="baby & kids">Baby & Kids</SelectItem>
+                       <SelectItem value="tools & equipment">Tools & Equipment</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

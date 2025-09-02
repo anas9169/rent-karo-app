@@ -2,14 +2,23 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
 import { categories } from '../data/categories';
+import { useScrollAnimation, useScrollAnimationMultiple } from '@/hooks/useScrollAnimation';
 
 const Categories = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredCategories = categories.filter(category =>
-    category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    category.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Scroll animations
+  const [headerRef, headerVisible] = useScrollAnimation();
+  const [searchRef, searchVisible] = useScrollAnimation();
+  const [popularRef, popularVisible] = useScrollAnimation();
+  const [categoriesRef, categoriesVisible] = useScrollAnimation();
+
+  const filteredCategories = searchTerm 
+    ? categories.filter(category =>
+        category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        category.description.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : categories;
 
   const popularCategories = categories.filter(cat => cat.popular);
 
@@ -17,7 +26,12 @@ const Categories = () => {
     <div className="min-h-screen py-12 page-transition">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-12 transition-all duration-700 ${
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             Browse by <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Category</span>
           </h1>
@@ -26,69 +40,86 @@ const Categories = () => {
           </p>
           
           {/* Search */}
-          <div className="max-w-md mx-auto">
+          <div 
+            ref={searchRef}
+            className={`max-w-md mx-auto transition-all duration-700 delay-200 ${
+              searchVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
             <input
               type="text"
               placeholder="Search categories..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
+              className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground press-feedback"
             />
           </div>
         </div>
 
         {/* Popular Categories */}
         {!searchTerm && (
-          <div className="mb-16">
+          <div 
+            ref={popularRef}
+            className={`mb-16 transition-all duration-700 delay-400 ${
+              popularVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
             <div className="flex items-center mb-8">
               <Star className="w-6 h-6 text-primary mr-3" />
               <h2 className="text-2xl font-bold text-foreground">Popular Categories</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {popularCategories.map((category) => (
+              {popularCategories.map((category, index) => (
               <Link
                 key={category.id}
                 to={`/search?category=${encodeURIComponent(category.name.toLowerCase())}`}
-                className="group bg-card border border-border rounded-lg p-6 card-hover transition-all duration-300 hover:border-primary/50"
+                className="group enhanced-card p-6 micro-bounce-scale"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <category.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-card-foreground mb-2 group-hover:text-primary transition-colors">
-                        {category.name}
-                      </h3>
-                      <p className="text-muted-foreground text-sm mb-3">
-                        {category.description}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          {category.itemCount} items
-                        </span>
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-                          Popular
-                        </span>
-                      </div>
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <category.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-card-foreground mb-2 group-hover:text-primary transition-colors">
+                      {category.name}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-3">
+                      {category.description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">
+                        {category.itemCount} items
+                      </span>
+                      <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                        Popular
+                      </span>
                     </div>
                   </div>
-                </Link>
+                </div>
+              </Link>
               ))}
             </div>
           </div>
         )}
 
         {/* All Categories */}
-        <div>
+        <div 
+          ref={categoriesRef}
+          className={`transition-all duration-700 delay-600 ${
+            categoriesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
           <h2 className="text-2xl font-bold text-foreground mb-8">
             {searchTerm ? `Search Results (${filteredCategories.length})` : 'All Categories'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCategories.map((category) => (
+            {filteredCategories.map((category, index) => (
               <Link
                 key={category.id}
                 to={`/search?category=${encodeURIComponent(category.name.toLowerCase())}`}
-                className="group bg-card border border-border rounded-lg p-6 card-hover transition-all duration-300 hover:border-primary/50"
+                className="group enhanced-card p-6 animate-fade-in micro-bounce-scale"
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">

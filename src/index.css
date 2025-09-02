@@ -181,8 +181,77 @@
     @apply animate-bounce-subtle;
   }
 
-  /* Button press feedback */
-  .press-feedback {
-    @apply active:scale-95 transition-transform duration-75;
+  /* Staggered Animation */
+  .animate-fade-in {
+    @apply opacity-0 translate-y-4;
+    animation: fade-in 0.6s ease-out forwards;
+  }
+
+  /* Scroll Animations */
+  .scroll-fade-in {
+    @apply opacity-0 translate-y-8 transition-all duration-700;
+  }
+
+  .scroll-fade-in.visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Enhanced Microinteractions */
+  .micro-bounce-scale {
+    @apply transition-transform duration-200 hover:scale-110 active:scale-95;
+  }
+
+  .ripple-effect {
+    @apply relative overflow-hidden;
+  }
+
+  .ripple-effect::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 scale-0 rounded-full transition-transform duration-500;
+    transform-origin: center;
+  }
+
+  .ripple-effect:hover::before {
+    @apply scale-100;
+  }
+
+  /* Enhanced Cards */
+  .enhanced-card {
+    @apply bg-card border border-border rounded-lg overflow-hidden transition-all duration-300;
+    box-shadow: 0 2px 10px -2px hsl(var(--muted) / 0.3);
+  }
+
+  .enhanced-card:hover {
+    @apply -translate-y-1 border-primary/30;
+    box-shadow: 0 8px 30px -8px hsl(var(--primary) / 0.3);
+  }
+
+  /* Loading Shimmer */
+  .loading-shimmer {
+    @apply relative overflow-hidden bg-muted;
+  }
+
+  .loading-shimmer::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--background) / 0.4),
+      transparent
+    );
+    transform: translateX(-100%);
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Smooth Focus States */
+  .focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background transition-shadow duration-200;
   }
 }

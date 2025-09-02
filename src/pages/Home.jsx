@@ -29,7 +29,7 @@ const Home = () => {
   ];
 
   const trustBadges = [
-    { icon: Shield, title: 'Verified Listings', desc: 'Every item is verified by our team' },
+    { icon: Shield, title: 'Wide Range of Listings', desc: 'Find exactly what you need from our diverse collection' },
     { icon: Headphones, title: 'Easy Communication', desc: 'Direct chat between renters and owners' },
     { icon: Search, title: 'Smart Discovery', desc: 'Find exactly what you need nearby' }
   ];
