@@ -2,16 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
 import { categories } from '../data/categories';
-import { useScrollAnimation, useScrollAnimationMultiple } from '@/hooks/useScrollAnimation';
 
 const Categories = () => {
   const [searchTerm, setSearchTerm] = useState('');
-
-  // Scroll animations
-  const [headerRef, headerVisible] = useScrollAnimation();
-  const [searchRef, searchVisible] = useScrollAnimation();
-  const [popularRef, popularVisible] = useScrollAnimation();
-  const [categoriesRef, categoriesVisible] = useScrollAnimation();
 
   const filteredCategories = searchTerm 
     ? categories.filter(category =>
@@ -26,12 +19,7 @@ const Categories = () => {
     <div className="min-h-screen py-12 page-transition">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div 
-          ref={headerRef}
-          className={`text-center mb-12 transition-all duration-700 ${
-            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
+        <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             Browse by <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Category</span>
           </h1>
@@ -40,12 +28,7 @@ const Categories = () => {
           </p>
           
           {/* Search */}
-          <div 
-            ref={searchRef}
-            className={`max-w-md mx-auto transition-all duration-700 delay-200 ${
-              searchVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-          >
+          <div className="max-w-md mx-auto">
             <input
               type="text"
               placeholder="Search categories..."
@@ -58,12 +41,7 @@ const Categories = () => {
 
         {/* Popular Categories */}
         {!searchTerm && (
-          <div 
-            ref={popularRef}
-            className={`mb-16 transition-all duration-700 delay-400 ${
-              popularVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-          >
+          <div className="mb-16">
             <div className="flex items-center mb-8">
               <Star className="w-6 h-6 text-primary mr-3" />
               <h2 className="text-2xl font-bold text-foreground">Popular Categories</h2>
@@ -73,7 +51,7 @@ const Categories = () => {
               <Link
                 key={category.id}
                 to={`/search?category=${encodeURIComponent(category.name.toLowerCase())}`}
-                className="group enhanced-card p-6 micro-bounce-scale"
+                className="group enhanced-card p-6 micro-bounce-scale animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-start space-x-4">
@@ -104,12 +82,7 @@ const Categories = () => {
         )}
 
         {/* All Categories */}
-        <div 
-          ref={categoriesRef}
-          className={`transition-all duration-700 delay-600 ${
-            categoriesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
+        <div>
           <h2 className="text-2xl font-bold text-foreground mb-8">
             {searchTerm ? `Search Results (${filteredCategories.length})` : 'All Categories'}
           </h2>
