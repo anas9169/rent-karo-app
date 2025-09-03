@@ -2,9 +2,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
 import { categories } from '../data/categories';
+import { useScrollReveal, useScrollRevealStagger } from '@/hooks/useScrollReveal';
 
 const Categories = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  
+  // Scroll animations
+  const [headerRef, headerVisible] = useScrollReveal(0.2);
+  const [popularRef, popularVisible] = useScrollReveal(0.1);
+  const [categoriesRef, categoriesVisible] = useScrollReveal(0.1);
+  const [setPopularRef, isPopularVisible] = useScrollRevealStagger(categories.filter(cat => cat.popular).length, 150);
+  const [setCategoryRef, isCategoryVisible] = useScrollRevealStagger(categories.length, 100);
 
   const filteredCategories = searchTerm 
     ? categories.filter(category =>
@@ -19,7 +27,10 @@ const Categories = () => {
     <div className="min-h-screen py-12 page-transition">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-12 scroll-reveal ${headerVisible ? 'visible' : ''}`}
+        >
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             Browse by <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Category</span>
           </h1>
@@ -28,7 +39,7 @@ const Categories = () => {
           </p>
           
           {/* Search */}
-          <div className="max-w-md mx-auto">
+          <div className={`max-w-md mx-auto scroll-reveal-scale ${headerVisible ? 'visible' : ''}`} style={{ transitionDelay: '300ms' }}>
             <input
               type="text"
               placeholder="Search categories..."
@@ -41,8 +52,11 @@ const Categories = () => {
 
         {/* Popular Categories */}
         {!searchTerm && (
-          <div className="mb-16">
-            <div className="flex items-center mb-8">
+          <div 
+            ref={popularRef}
+            className={`mb-16 scroll-reveal ${popularVisible ? 'visible' : ''}`}
+          >
+            <div className={`flex items-center mb-8 scroll-reveal-left ${popularVisible ? 'visible' : ''}`}>
               <Star className="w-6 h-6 text-primary mr-3" />
               <h2 className="text-2xl font-bold text-foreground">Popular Categories</h2>
             </div>
@@ -50,9 +64,9 @@ const Categories = () => {
               {popularCategories.map((category, index) => (
               <Link
                 key={category.id}
+                ref={setPopularRef(index)}
                 to={`/search?category=${encodeURIComponent(category.name.toLowerCase())}`}
-                className="group enhanced-card p-6 micro-bounce-scale animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className={`group enhanced-card p-6 micro-bounce-scale scroll-reveal-scale ${isPopularVisible(index) ? 'visible' : ''}`}
               >
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -82,17 +96,20 @@ const Categories = () => {
         )}
 
         {/* All Categories */}
-        <div>
-          <h2 className="text-2xl font-bold text-foreground mb-8">
+        <div 
+          ref={categoriesRef}
+          className={`scroll-reveal ${categoriesVisible ? 'visible' : ''}`}
+        >
+          <h2 className={`text-2xl font-bold text-foreground mb-8 scroll-reveal-left ${categoriesVisible ? 'visible' : ''}`}>
             {searchTerm ? `Search Results (${filteredCategories.length})` : 'All Categories'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredCategories.map((category, index) => (
               <Link
                 key={category.id}
+                ref={setCategoryRef(index)}
                 to={`/search?category=${encodeURIComponent(category.name.toLowerCase())}`}
-                className="group enhanced-card p-6 animate-fade-in micro-bounce-scale"
-                style={{ animationDelay: `${index * 50}ms` }}
+                className={`group enhanced-card p-6 micro-bounce-scale scroll-reveal-scale ${isCategoryVisible(index) ? 'visible' : ''}`}
               >
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
