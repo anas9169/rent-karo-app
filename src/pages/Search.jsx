@@ -137,7 +137,7 @@ const SearchPage = () => {
   return (
     <div className="min-h-screen bg-background page-transition">
       {/* Search Header */}
-      <div className="bg-white border-b border-border sticky top-16 z-40">
+      <div className="bg-background border-b border-border sticky top-16 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <form onSubmit={handleSearch} className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">

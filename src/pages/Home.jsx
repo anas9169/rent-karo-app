@@ -85,7 +85,7 @@ const Home = () => {
 
           {/* Search Bar */}
           <form onSubmit={handleSearch} className="max-w-4xl mx-auto">
-            <div className="bg-white p-6 rounded-2xl shadow-lg border border-border">
+            <div className="bg-background p-6 rounded-2xl shadow-lg border border-border">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="relative">
                   <label className="block text-sm font-medium text-foreground mb-2">What</label>
