@@ -118,11 +118,11 @@ const SignUp = () => {
                     />
                     <Label 
                       htmlFor="renter"
-                      className="flex flex-col items-center justify-between rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer h-20 transition-all duration-200"
+                      className="flex flex-col items-center justify-center rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer h-24 transition-all duration-200"
                     >
                       <span className="text-lg mb-1">📱</span>
-                      <span className="font-medium">Rent Items</span>
-                      <span className="text-xs text-muted-foreground text-center">Find and rent items you need</span>
+                      <span className="font-medium text-center">Rent Items</span>
+                      <span className="text-xs text-muted-foreground text-center mt-1">Find and rent items</span>
                     </Label>
                   </div>
                   <div>
@@ -133,11 +133,11 @@ const SignUp = () => {
                     />
                     <Label 
                       htmlFor="owner"
-                      className="flex flex-col items-center justify-between rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer h-20 transition-all duration-200"
+                      className="flex flex-col items-center justify-center rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer h-24 transition-all duration-200"
                     >
                       <span className="text-lg mb-1">💰</span>
-                      <span className="font-medium">Rent Out</span>
-                      <span className="text-xs text-muted-foreground text-center">Earn by renting your items</span>
+                      <span className="font-medium text-center">Rent Out</span>
+                      <span className="text-xs text-muted-foreground text-center mt-1">Earn by renting items</span>
                     </Label>
                   </div>
                 </RadioGroup>

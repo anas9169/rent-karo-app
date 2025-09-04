@@ -190,7 +190,7 @@ const Home = () => {
               <Link 
                 key={index} 
                 ref={setCategoryRef(index)}
-                to={`/search?category=${encodeURIComponent(category.name.toLowerCase())}`}
+                to={`/search?category=${encodeURIComponent(category.name)}`}
                 className={`card-hover bg-card p-6 rounded-lg text-center border border-border cursor-pointer interactive-hover group scroll-reveal-scale ${isCategoryVisible(index) ? 'visible' : ''}`}
               >
                 <div className="w-16 h-16 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">

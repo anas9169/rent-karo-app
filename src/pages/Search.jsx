@@ -105,7 +105,8 @@ const SearchPage = () => {
     // Filter by category
     if (filters.category !== 'all') {
       filtered = filtered.filter(item => 
-        item.category.toLowerCase() === filters.category.toLowerCase()
+        item.category.toLowerCase() === filters.category.toLowerCase() ||
+        item.category.toLowerCase().includes(filters.category.toLowerCase())
       );
     }
 
@@ -193,21 +194,21 @@ const SearchPage = () => {
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Categories</SelectItem>
-                       <SelectItem value="camera">Camera</SelectItem>
-                       <SelectItem value="tools">Tools</SelectItem>
-                       <SelectItem value="electronics">Electronics</SelectItem>
-                       <SelectItem value="vehicle">Vehicle</SelectItem>
-                       <SelectItem value="party">Party</SelectItem>
-                       <SelectItem value="home & garden">Home & Garden</SelectItem>
-                       <SelectItem value="photography">Photography</SelectItem>
-                       <SelectItem value="musical instruments">Musical Instruments</SelectItem>
-                       <SelectItem value="gaming">Gaming</SelectItem>
-                       <SelectItem value="sports & fitness">Sports & Fitness</SelectItem>
-                       <SelectItem value="baby & kids">Baby & Kids</SelectItem>
-                       <SelectItem value="tools & equipment">Tools & Equipment</SelectItem>
-                    </SelectContent>
+                     <SelectContent>
+                       <SelectItem value="all">All Categories</SelectItem>
+                        <SelectItem value="Cameras">Cameras</SelectItem>
+                        <SelectItem value="Tools">Tools</SelectItem>
+                        <SelectItem value="Electronics">Electronics</SelectItem>
+                        <SelectItem value="Vehicles">Vehicles</SelectItem>
+                        <SelectItem value="Party">Party</SelectItem>
+                        <SelectItem value="Home & Garden">Home & Garden</SelectItem>
+                        <SelectItem value="Photography">Photography</SelectItem>
+                        <SelectItem value="Musical Instruments">Musical Instruments</SelectItem>
+                        <SelectItem value="Gaming">Gaming</SelectItem>
+                        <SelectItem value="Sports & Fitness">Sports & Fitness</SelectItem>
+                        <SelectItem value="Baby & Kids">Baby & Kids</SelectItem>
+                        <SelectItem value="Tools & Equipment">Tools & Equipment</SelectItem>
+                     </SelectContent>
                   </Select>
                 </div>
 
