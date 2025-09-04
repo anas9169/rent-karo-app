@@ -7,6 +7,7 @@ import ListingCard from '@/components/ListingCard';
 import SearchInput from '@/components/SearchInput';
 import { Search, Filter, MapPin, Calendar } from 'lucide-react';
 import AdBanner from '@/components/AdBanner';
+import { getAllListings } from '@/data/sampleListings';
 
 const SearchPage = () => {
   const location = useLocation();
@@ -21,69 +22,17 @@ const SearchPage = () => {
     sortBy: 'relevance'
   });
 
-  // Sample listings data
-  const allListings = [
-    {
-      id: 1,
-      image: 'https://images.unsplash.com/photo-1606983340126-99ab4febbf25?w=400&h=300&fit=crop',
-      title: 'Canon EOS R5 Professional Camera',
-      city: 'Mumbai',
-      price: 2500,
-      rating: 4.9,
-      reviewCount: 127,
-      category: 'Camera'
-    },
-    {
-      id: 2, 
-      image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=300&fit=crop',
-      title: 'Professional Drill Set with Accessories',
-      city: 'Delhi',
-      price: 800,
-      rating: 4.7,
-      reviewCount: 89,
-      category: 'Tools'
-    },
-    {
-      id: 3,
-      image: 'https://images.unsplash.com/photo-1549388604-817d15aa0110?w=400&h=300&fit=crop',
-      title: 'BMW 3 Series for Weekend Getaways',
-      city: 'Bangalore',
-      price: 4200,
-      rating: 4.8,
-      reviewCount: 156,
-      category: 'Vehicle'
-    },
-    {
-      id: 4,
-      image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop',
-      title: 'MacBook Pro 16" for Creative Work',
-      city: 'Mumbai',
-      price: 1500,
-      rating: 4.6,
-      reviewCount: 73,
-      category: 'Electronics'
-    },
-    {
-      id: 5,
-      image: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop',
-      title: 'DJ Equipment Set with Speakers',
-      city: 'Delhi',
-      price: 3500,
-      rating: 4.8,
-      reviewCount: 92,
-      category: 'Party'
-    },
-    {
-      id: 6,
-      image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&h=300&fit=crop',
-      title: 'Honda City - Perfect for City Rides',
-      city: 'Pune',
-      price: 2800,
-      rating: 4.5,
-      reviewCount: 134,
-      category: 'Vehicle'
-    }
-  ];
+  // Get all listings from sample data
+  const allListings = getAllListings().map(listing => ({
+    id: listing.id,
+    image: listing.images[0],
+    title: listing.title,
+    city: listing.city,
+    price: listing.price,
+    rating: listing.rating,
+    reviewCount: listing.reviewCount,
+    category: listing.category
+  }));
 
   const filteredListings = useMemo(() => {
     let filtered = allListings;

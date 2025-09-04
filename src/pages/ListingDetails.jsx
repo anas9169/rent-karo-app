@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, MapPin, Star, Heart, Share2, Shield, MessageCircle, ArrowLeft } from 'lucide-react';
 import { useChatModal } from '@/contexts/ChatContext';
+import { getListingById } from '@/data/sampleListings';
 
 const ListingDetails = () => {
   const { id } = useParams();
@@ -14,42 +15,20 @@ const ListingDetails = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
 
-  // Sample listing data (in real app, this would be fetched based on ID)
-  const listing = {
-    id: id,
-    title: 'Canon EOS R5 Professional Camera',
-    images: [
-      'https://images.unsplash.com/photo-1606983340126-99ab4febbf25?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1606983340126-99ab4febbf25?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1606983340126-99ab4febbf25?w=800&h=600&fit=crop'
-    ],
-    price: 2500,
-    rating: 4.9,
-    reviewCount: 127,
-    category: 'Camera',
-    city: 'Mumbai',
-    description: 'Professional-grade Canon EOS R5 camera perfect for photography and videography. Includes 24-105mm lens, extra batteries, memory cards, and a professional camera bag. Ideal for weddings, events, travel photography, and content creation.',
-    features: [
-      '45MP Full-Frame Sensor',
-      '8K Video Recording',
-      'In-Body Image Stabilization',
-      '24-105mm RF Lens Included',
-      'Extra Batteries & Memory Cards',
-      'Professional Camera Bag'
-    ],
-    owner: {
-      name: 'Rajesh Kumar',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
-      rating: 4.8,
-      reviewCount: 156,
-      joinedDate: 'March 2022',
-      verified: true
-    },
-    availability: ['2024-01-15', '2024-01-16', '2024-01-17'],
-    deposit: 5000,
-    location: 'Bandra West, Mumbai',
-    pickupOptions: ['Owner delivery', 'Self pickup']
-  };
+  // Get listing data based on ID
+  const listing = getListingById(id);
+
+  // If listing not found, show error
+  if (!listing) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Listing not found</h1>
+          <Button onClick={() => navigate('/')}>Go back to home</Button>
+        </div>
+      </div>
+    );
+  }
 
   const calculateTotal = () => {
     if (!selectedDate || !returnDate) return 0;

@@ -7,6 +7,7 @@ import SearchInput from '@/components/SearchInput';
 import { Search, Calendar, MapPin, Camera, Wrench, PartyPopper, Smartphone, Car, Shield, CreditCard, Headphones } from 'lucide-react';
 import AdBanner from '@/components/AdBanner';
 import { useScrollReveal, useScrollRevealStagger } from '@/hooks/useScrollReveal';
+import { getAllListings } from '@/data/sampleListings';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -46,39 +47,18 @@ const Home = () => {
     { icon: Search, title: 'Smart Discovery', desc: 'Find exactly what you need nearby' }
   ];
 
-  // Sample featured listings
-  const featuredListings = [
-    {
-      id: 1,
-      image: 'https://images.unsplash.com/photo-1606983340126-99ab4febbf25?w=400&h=300&fit=crop',
-      title: 'Canon EOS R5 Professional Camera',
-      city: 'Mumbai',
-      price: 2500,
-      rating: 4.9,
-      reviewCount: 127,
-      category: 'Camera'
-    },
-    {
-      id: 2, 
-      image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=300&fit=crop',
-      title: 'Professional Drill Set with Accessories',
-      city: 'Delhi',
-      price: 800,
-      rating: 4.7,
-      reviewCount: 89,
-      category: 'Tools'
-    },
-    {
-      id: 3,
-      image: 'https://images.unsplash.com/photo-1549388604-817d15aa0110?w=400&h=300&fit=crop',
-      title: 'BMW 3 Series for Weekend Getaways',
-      city: 'Bangalore',
-      price: 4200,
-      rating: 4.8,
-      reviewCount: 156,
-      category: 'Vehicle'
-    }
-  ];
+  // Get featured listings from sample data
+  const allListings = getAllListings();
+  const featuredListings = allListings.slice(0, 3).map(listing => ({
+    id: listing.id,
+    image: listing.images[0],
+    title: listing.title,
+    city: listing.city,
+    price: listing.price,
+    rating: listing.rating,
+    reviewCount: listing.reviewCount,
+    category: listing.category
+  }));
 
   return (
     <div className="min-h-screen page-transition">
