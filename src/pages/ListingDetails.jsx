@@ -7,13 +7,20 @@ import { Badge } from '@/components/ui/badge';
 import { Calendar, MapPin, Star, Heart, Share2, Shield, MessageCircle, ArrowLeft } from 'lucide-react';
 import { useChatModal } from '@/contexts/ChatContext';
 import { getListingById } from '@/data/sampleListings';
+import { useFavorites } from '@/contexts/FavoritesContext';
+import { useToast } from '@/hooks/use-toast';
+import ImageGalleryModal from '@/components/ImageGalleryModal';
 
 const ListingDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { openChat } = useChatModal();
+  const { isFavorite, addToFavorites, removeFromFavorites } = useFavorites();
+  const { toast } = useToast();
   const [selectedDate, setSelectedDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   // Get listing data based on ID
   const listing = getListingById(id);
@@ -39,8 +46,73 @@ const ListingDetails = () => {
   };
 
   const handleBookingRequest = () => {
-    // In new business model, this opens chat instead of booking
     openChat(listing.owner, listing);
+  };
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: listing.title,
+          text: `Check out this ${listing.title} for rent`,
+          url: url
+        });
+      } catch (error) {
+        // Fallback to clipboard if user cancels share
+        copyToClipboard(url);
+      }
+    } else {
+      copyToClipboard(url);
+    }
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      toast({
+        title: "Link copied!",
+        description: "Listing link has been copied to clipboard",
+      });
+    }).catch(() => {
+      toast({
+        title: "Failed to copy",
+        description: "Please copy the link manually",
+        variant: "destructive",
+      });
+    });
+  };
+
+  const handleSaveListing = () => {
+    const listingData = {
+      id: listing.id,
+      image: listing.images[0],
+      title: listing.title,
+      city: listing.city,
+      price: listing.price,
+      rating: listing.rating,
+      reviewCount: listing.reviewCount,
+      category: listing.category
+    };
+
+    if (isFavorite(listing.id)) {
+      removeFromFavorites(listing.id);
+      toast({
+        title: "Removed from favorites",
+        description: "Item has been removed from your favorites",
+      });
+    } else {
+      addToFavorites(listingData);
+      toast({
+        title: "Added to favorites",
+        description: "Item has been saved to your favorites",
+      });
+    }
+  };
+
+  const openImageModal = (index) => {
+    setSelectedImageIndex(index);
+    setIsImageModalOpen(true);
   };
 
   return (
@@ -67,7 +139,8 @@ const ListingDetails = () => {
                 <img 
                   src={listing.images[0]} 
                   alt={listing.title}
-                  className="w-full h-96 object-cover rounded-lg"
+                  className="w-full h-96 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => openImageModal(0)}
                 />
               </div>
               {listing.images.slice(1).map((image, index) => (
@@ -75,7 +148,8 @@ const ListingDetails = () => {
                   key={index}
                   src={image} 
                   alt={`${listing.title} ${index + 2}`}
-                  className="w-full h-48 object-cover rounded-lg"
+                  className="w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => openImageModal(index + 1)}
                 />
               ))}
             </div>
@@ -101,13 +175,18 @@ const ListingDetails = () => {
               </div>
               
               <div className="flex gap-2">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" onClick={handleShare}>
                   <Share2 className="w-4 h-4 mr-2" />
                   Share
                 </Button>
-                <Button variant="outline" size="sm">
-                  <Heart className="w-4 h-4 mr-2" />
-                  Save
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={handleSaveListing}
+                  className={isFavorite(listing.id) ? 'text-red-500 border-red-500' : ''}
+                >
+                  <Heart className={`w-4 h-4 mr-2 ${isFavorite(listing.id) ? 'fill-current' : ''}`} />
+                  {isFavorite(listing.id) ? 'Saved' : 'Save'}
                 </Button>
               </div>
             </div>
@@ -251,6 +330,14 @@ const ListingDetails = () => {
         </div>
       </div>
 
+      {/* Image Gallery Modal */}
+      <ImageGalleryModal
+        isOpen={isImageModalOpen}
+        onClose={() => setIsImageModalOpen(false)}
+        images={listing.images}
+        title={listing.title}
+        currentIndex={selectedImageIndex}
+      />
     </div>
   );
 };
