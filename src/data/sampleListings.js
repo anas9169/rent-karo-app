@@ -1,3 +1,5 @@
+import { additionalListings } from './additionalListings';
+
 // Sample listing data for demonstration
 export const sampleListings = {
   1: {
@@ -11,7 +13,7 @@ export const sampleListings = {
     price: 2500,
     rating: 4.9,
     reviewCount: 127,
-    category: 'Camera',
+    category: 'photography',
     city: 'Mumbai',
     description: 'Professional-grade Canon EOS R5 camera perfect for photography and videography. Includes 24-105mm lens, extra batteries, memory cards, and a professional camera bag. Ideal for weddings, events, travel photography, and content creation.',
     features: [
@@ -46,7 +48,7 @@ export const sampleListings = {
     price: 1800,
     rating: 4.8,
     reviewCount: 89,
-    category: 'Drone',
+    category: 'electronics',
     city: 'Delhi',
     description: 'High-quality DJI Air 2S drone with 4K video recording capabilities. Perfect for aerial photography, real estate shoots, and content creation. Includes multiple batteries, carrying case, and memory cards.',
     features: [
@@ -81,7 +83,7 @@ export const sampleListings = {
     price: 3200,
     rating: 4.7,
     reviewCount: 234,
-    category: 'Laptop',
+    category: 'electronics',
     city: 'Bangalore',
     description: 'Latest MacBook Pro 16" with M2 Max chip, perfect for video editing, software development, and creative work. Includes charger, carrying case, and all necessary accessories.',
     features: [
@@ -116,7 +118,7 @@ export const sampleListings = {
     price: 2200,
     rating: 4.8,
     reviewCount: 156,
-    category: 'Camera',
+    category: 'photography',
     city: 'Pune',
     description: 'Versatile Sony A7 III camera perfect for both photography and videography. Great for travel, portraits, and professional shoots. Includes 28-70mm kit lens and essential accessories.',
     features: [
@@ -151,7 +153,7 @@ export const sampleListings = {
     price: 1500,
     rating: 4.9,
     reviewCount: 312,
-    category: 'Gaming',
+    category: 'gaming',
     city: 'Chennai',
     description: 'Latest PlayStation 5 console with 2 wireless controllers and popular games included. Perfect for gaming enthusiasts and parties. All accessories and cables included.',
     features: [
@@ -186,7 +188,7 @@ export const sampleListings = {
     price: 800,
     rating: 4.7,
     reviewCount: 164,
-    category: 'Camera',
+    category: 'photography',
     city: 'Goa',
     description: 'Compact and rugged GoPro Hero 11 Black perfect for adventure sports, travel, and underwater photography. Includes mounting accessories and waterproof case.',
     features: [
@@ -219,5 +221,5 @@ export const getListingById = (id) => {
 
 // Helper function to get all listings
 export const getAllListings = () => {
-  return Object.values(sampleListings);
+  return [...Object.values(sampleListings), ...Object.values(additionalListings)];
 };
