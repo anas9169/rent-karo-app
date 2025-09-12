@@ -51,12 +51,22 @@ const SearchPage = () => {
       );
     }
 
-    // Filter by category
+    // Filter by category - handle both category ID and name matching
     if (filters.category !== 'all') {
-      filtered = filtered.filter(item => 
-        item.category.toLowerCase() === filters.category.toLowerCase() ||
-        item.category.toLowerCase().includes(filters.category.toLowerCase())
-      );
+      filtered = filtered.filter(item => {
+        const categoryMatch = 
+          item.category.toLowerCase() === filters.category.toLowerCase() ||
+          item.category.toLowerCase().includes(filters.category.toLowerCase()) ||
+          // Handle URL encoded categories like "baby%20%26%20kids" -> "baby-kids"
+          item.category.replace(/[-\s&]/g, '').toLowerCase() === filters.category.replace(/[-\s%20%26]/g, '').toLowerCase() ||
+          // Handle direct matches for baby-kids vs baby & kids
+          (filters.category.includes('baby') && item.category === 'baby-kids') ||
+          (filters.category.includes('home') && item.category === 'home-garden') ||
+          (filters.category.includes('tool') && item.category === 'tools') ||
+          (filters.category.includes('music') && item.category === 'music') ||
+          (filters.category.includes('fitness') && item.category === 'fitness');
+        return categoryMatch;
+      });
     }
 
     // Filter by price range

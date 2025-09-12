@@ -65,7 +65,7 @@ const Categories = () => {
               <Link
                 key={category.id}
                 ref={setPopularRef(index)}
-                to={`/search?category=${encodeURIComponent(category.name.toLowerCase())}`}
+                to={`/search?category=${encodeURIComponent(category.id)}`}
                 className={`group enhanced-card p-6 micro-bounce-scale scroll-reveal-scale ${isPopularVisible(index) ? 'visible' : ''}`}
               >
                 <div className="flex items-start space-x-4">
@@ -108,7 +108,7 @@ const Categories = () => {
               <Link
                 key={category.id}
                 ref={setCategoryRef(index)}
-                to={`/search?category=${encodeURIComponent(category.name.toLowerCase())}`}
+                to={`/search?category=${encodeURIComponent(category.id)}`}
                 className={`group enhanced-card p-6 micro-bounce-scale scroll-reveal-scale ${isCategoryVisible(index) ? 'visible' : ''}`}
               >
                 <div className="flex items-start space-x-4">

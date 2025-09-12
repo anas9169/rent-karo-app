@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useFavorites } from '@/contexts/FavoritesContext';
 import { Menu, X, User, Heart, MessageCircle, ChevronDown } from 'lucide-react';
+import logo from '@/assets/RentKaro_Final_Logo.jpg';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,9 +20,11 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="bg-gradient-to-r from-primary to-accent w-8 h-8 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">RK</span>
-            </div>
+            <img 
+              src={logo} 
+              alt="Rent Karo Logo" 
+              className="w-8 h-8 object-contain"
+            />
             <span className="text-xl font-bold text-foreground">Rent Karo</span>
           </Link>
 

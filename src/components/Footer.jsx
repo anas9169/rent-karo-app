@@ -1,6 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import logo from '@/assets/RentKaro_Final_Logo.jpg';
 
 const Footer = () => {
   return (
@@ -10,9 +11,11 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="bg-gradient-to-r from-primary to-accent w-8 h-8 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">RK</span>
-              </div>
+              <img 
+                src={logo} 
+                alt="Rent Karo Logo" 
+                className="w-8 h-8 object-contain"
+              />
               <span className="text-xl font-bold text-foreground">Rent Karo</span>
             </Link>
             <p className="text-muted-foreground text-sm">

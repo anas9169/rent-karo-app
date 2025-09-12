@@ -4,10 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import ListingCard from '@/components/ListingCard';
 import SearchInput from '@/components/SearchInput';
-import { Search, Calendar, MapPin, Camera, Wrench, PartyPopper, Smartphone, Car, Shield, CreditCard, Headphones } from 'lucide-react';
+import { Search, Calendar, MapPin, Shield, Headphones } from 'lucide-react';
 import AdBanner from '@/components/AdBanner';
 import { useScrollReveal, useScrollRevealStagger } from '@/hooks/useScrollReveal';
 import { getAllListings } from '@/data/sampleListings';
+import { categories } from '@/data/categories';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -33,13 +34,8 @@ const Home = () => {
     navigate('/search', { state: searchData });
   };
 
-  const categories = [
-    { name: 'Cameras', icon: Camera, count: '2.5k+' },
-    { name: 'Tools', icon: Wrench, count: '1.8k+' },
-    { name: 'Party', icon: PartyPopper, count: '950+' },
-    { name: 'Electronics', icon: Smartphone, count: '3.2k+' },
-    { name: 'Vehicles', icon: Car, count: '680+' }
-  ];
+  // Get popular categories from categories data
+  const popularCategories = categories.filter(cat => cat.popular).slice(0, 5);
 
   const trustBadges = [
     { icon: Shield, title: 'Wide Range of Listings', desc: 'Find exactly what you need from our diverse collection' },
@@ -166,18 +162,18 @@ const Home = () => {
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {categories.map((category, index) => (
+            {popularCategories.map((category, index) => (
               <Link 
-                key={index} 
+                key={category.id} 
                 ref={setCategoryRef(index)}
-                to={`/search?category=${encodeURIComponent(category.name)}`}
+                to={`/search?category=${encodeURIComponent(category.id)}`}
                 className={`card-hover bg-card p-6 rounded-lg text-center border border-border cursor-pointer interactive-hover group scroll-reveal-scale ${isCategoryVisible(index) ? 'visible' : ''}`}
               >
                 <div className="w-16 h-16 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <category.icon className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="font-semibold text-card-foreground mb-1 group-hover:text-primary transition-colors">{category.name}</h3>
-                <p className="text-sm text-muted-foreground">{category.count} items</p>
+                <p className="text-sm text-muted-foreground">{category.itemCount}+ items</p>
               </Link>
             ))}
           </div>
