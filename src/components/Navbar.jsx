@@ -23,7 +23,7 @@ const Navbar = () => {
             <img 
               src={logo} 
               alt="Rent Karo Logo" 
-              className="h-12 w-auto object-contain"
+              className="h-14 w-32 object-cover scale-125"
             />
           </Link>
 

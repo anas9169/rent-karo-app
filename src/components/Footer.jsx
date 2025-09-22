@@ -14,7 +14,7 @@ const Footer = () => {
               <img 
                 src={logo} 
                 alt="Rent Karo Logo" 
-                className="h-16 w-auto object-contain"
+                className="h-20 w-40 object-cover scale-110"
               />
             </Link>
             <p className="text-muted-foreground text-sm">
