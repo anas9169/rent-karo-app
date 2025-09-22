@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
-import logo from '@/assets/RentKaro_Final_Logo.jpg';
+import ProcessedLogo from '@/components/ProcessedLogo';
 
 const Footer = () => {
   return (
@@ -11,11 +11,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center">
-              <img 
-                src={logo} 
-                alt="Rent Karo Logo" 
-                className="h-20 w-40 object-cover scale-110"
-              />
+              <ProcessedLogo className="h-20 w-auto object-contain" />
             </Link>
             <p className="text-muted-foreground text-sm">
               India's trusted marketplace for renting anything from cameras to cars.

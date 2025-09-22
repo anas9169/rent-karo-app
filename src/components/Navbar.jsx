@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useFavorites } from '@/contexts/FavoritesContext';
 import { Menu, X, User, Heart, MessageCircle, ChevronDown } from 'lucide-react';
-import logo from '@/assets/RentKaro_Final_Logo.jpg';
+import ProcessedLogo from '@/components/ProcessedLogo';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,11 +20,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img 
-              src={logo} 
-              alt="Rent Karo Logo" 
-              className="h-14 w-32 object-cover scale-125"
-            />
+            <ProcessedLogo className="h-16 w-auto object-contain" />
           </Link>
 
           {/* Desktop Navigation */}
