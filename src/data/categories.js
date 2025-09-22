@@ -31,7 +31,7 @@ export const categories = [
     icon: Camera,
     description: 'DSLR cameras, lenses, lighting equipment',
     itemCount: 67,
-    popular: false
+    popular: true
   },
   {
     id: 'music',
@@ -47,7 +47,7 @@ export const categories = [
     icon: Gamepad2,
     description: 'Consoles, games, VR headsets, accessories',
     itemCount: 78,
-    popular: false
+    popular: true
   },
   {
     id: 'fitness',
