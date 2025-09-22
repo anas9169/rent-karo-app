@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { processLogoImage } from '@/utils/backgroundRemoval';
-import logo from '@/assets/RentKaro_Final_Logo.jpg';
+import logo from '@/assets/RentKaro_Final_Logo.png';
 
-const ProcessedLogo = ({ className, alt = "Rent Karo Logo", style = {} }) => {
+const ProcessedLogo = ({ className, alt = "Rent Karo Logo", style = {}, enableHover = false }) => {
   const [processedLogo, setProcessedLogo] = useState(null);
   const [isProcessing, setIsProcessing] = useState(true);
 
@@ -25,22 +25,26 @@ const ProcessedLogo = ({ className, alt = "Rent Karo Logo", style = {} }) => {
 
   // Show original logo while processing or if processing failed
   if (isProcessing || !processedLogo) {
+    const hoverClass = enableHover ? 'transition-transform duration-300 hover:animate-bounce' : '';
+    
     return (
       <img 
         src={logo} 
         alt={alt} 
-        className={className}
-        style={{ ...style, imageRendering: 'crisp-edges' }}
+        className={`${className} ${hoverClass}`.trim()}
+        style={{ ...style, imageRendering: 'crisp-edges', objectFit: 'cover' }}
       />
     );
   }
+
+  const hoverClass = enableHover ? 'transition-transform duration-300 hover:animate-bounce' : '';
 
   return (
     <img 
       src={processedLogo} 
       alt={alt} 
-      className={className}
-      style={{ ...style, imageRendering: 'crisp-edges' }}
+      className={`${className} ${hoverClass}`.trim()}
+      style={{ ...style, imageRendering: 'crisp-edges', objectFit: 'cover' }}
     />
   );
 };

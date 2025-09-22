@@ -20,7 +20,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <ProcessedLogo className="h-16 w-auto object-contain" />
+            <ProcessedLogo className="h-16 w-auto object-cover" enableHover={true} />
           </Link>
 
           {/* Desktop Navigation */}

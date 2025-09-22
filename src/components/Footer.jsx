@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center">
-              <ProcessedLogo className="h-20 w-auto object-contain" />
+              <ProcessedLogo className="h-20 w-auto object-cover" />
             </Link>
             <p className="text-muted-foreground text-sm">
               India's trusted marketplace for renting anything from cameras to cars.
