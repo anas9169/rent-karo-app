@@ -19,13 +19,12 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center">
             <img 
               src={logo} 
               alt="Rent Karo Logo" 
-              className="w-14 h-14 object-cover rounded-lg"
+              className="h-12 w-auto object-contain"
             />
-            <span className="text-2xl font-bold text-foreground">Rent Karo</span>
           </Link>
 
           {/* Desktop Navigation */}
