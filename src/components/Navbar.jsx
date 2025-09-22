@@ -17,14 +17,15 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-background border-b border-border shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center space-x-3">
             <img 
               src={logo} 
               alt="Rent Karo Logo" 
-              className="w-12 h-12 object-cover rounded-lg"
+              className="w-14 h-14 object-cover rounded-lg"
             />
+            <span className="text-2xl font-bold text-foreground">Rent Karo</span>
           </Link>
 
           {/* Desktop Navigation */}

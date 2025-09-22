@@ -10,12 +10,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center">
+            <Link to="/" className="flex items-center space-x-3">
               <img 
                 src={logo} 
                 alt="Rent Karo Logo" 
-                className="w-16 h-16 object-cover rounded-lg"
+                className="w-20 h-20 object-cover rounded-lg"
               />
+              <span className="text-2xl font-bold text-foreground">Rent Karo</span>
             </Link>
             <p className="text-muted-foreground text-sm">
               India's trusted marketplace for renting anything from cameras to cars.
