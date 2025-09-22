@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export const useScrollReveal = (threshold = 0.1, rootMargin = '0px') => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
+  // Safely initialize state with error handling
+  const [isVisible, setIsVisible] = React.useState(false);
+  const ref = React.useRef(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -35,10 +36,10 @@ export const useScrollReveal = (threshold = 0.1, rootMargin = '0px') => {
 
 // Hook for multiple elements with staggered animations
 export const useScrollRevealStagger = (itemCount, delay = 100) => {
-  const [visibleItems, setVisibleItems] = useState(new Set());
-  const refs = useRef([]);
+  const [visibleItems, setVisibleItems] = React.useState(new Set());
+  const refs = React.useRef([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const observers = [];
 
     refs.current.forEach((ref, index) => {
